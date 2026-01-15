@@ -1,0 +1,44 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: latest
+          body: |
+            ## 更新内容
+
+            - 自动构建发布
+            - 提交: ${{ github.sha }}
+            
+            ## 下载方式
+            
+            ```bash
+            curl -L https://github.com/freemankevin/acme-ssl-breeze/archive/refs/tags/latest.tar.gz -o acme-ssl-breeze.tar.gz
+            tar -xzf acme-ssl-breeze.tar.gz
+            cd acme-ssl-breeze-latest
+            ```
+          draft: false
+          prerelease: false
+          files: |
+            renew-ssl-cert.sh
+            README.md
+            LICENSE
