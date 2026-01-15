@@ -2,8 +2,7 @@ name: Update latest release
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -12,15 +11,30 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Update 'latest' release
-        uses: softprops/action-gh-release@v2  # 升级到最新稳定版（2026年1月为v2.5.0+）
+      # 1. 把 latest 标签强制指向当前提交
+      - name: Move latest tag to HEAD
+        run: |
+          git tag -f latest
+          git push -f origin latest
+
+      # 2. 重建 latest release（覆盖源码包）
+      - name: Re-create latest release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
-          target_commitish: ${{ github.sha }}     # 确保指向最新提交
+          name: latest
+          body: "自动同步主分支最新代码"
+          prerelease: false
+          draft: false
+          generate_release_notes: false
+          files: |
+            LICENSE
+            README.md
+            renew-ssl-cert.sh
+          target_commitish: ${{ github.sha }}
