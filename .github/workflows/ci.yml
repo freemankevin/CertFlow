@@ -24,12 +24,3 @@ jobs:
         with:
           tag_name: latest
           target_commitish: ${{ github.sha }}     # 确保指向最新提交
-          
-          # 核心：每次都覆盖旧的 release body，而不是追加
-          body: |
-           
-            ### 使用方法
-            ```bash
-            curl -L https://github.com/freemankevin/acme-ssl-breeze/archive/refs/tags/latest.tar.gz | tar -xz && cd acme-ssl-breeze-latest
-            ./renew-ssl-cert.sh
-            ```
