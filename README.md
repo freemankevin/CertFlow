@@ -8,7 +8,7 @@
 
   <p align="center">
     <a href="https://github.com/freemankevin/acme-ssl-breeze/actions/workflows/ci.yml">
-      <img src="https://github.com/freemankevin/acme-ssl-breeze/workflows/CI/badge.svg" alt="CI Status"/>
+    <img src="https://github.com/freemankevin/acme-ssl-breeze/actions/workflows/ci.yml/badge.svg" alt="CI Status"/>
     </a>
     <a href="https://github.com/freemankevin/acme-ssl-breeze/blob/main/LICENSE">
       <img src="https://img.shields.io/github/license/freemankevin/acme-ssl-breeze?style=flat-square&color=success" alt="License"/>
