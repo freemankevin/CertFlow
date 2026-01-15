@@ -1,4 +1,4 @@
-name: Create Release
+name: Update latest release
 
 on:
   push:
@@ -19,26 +19,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
+      - name: Update 'latest' release
+        uses: softprops/action-gh-release@v2  # 升级到最新稳定版（2026年1月为v2.5.0+）
         with:
           tag_name: latest
+          target_commitish: ${{ github.sha }}     # 确保指向最新提交
+          
+          # 核心：每次都覆盖旧的 release body，而不是追加
           body: |
-            ## 更新内容
-
-            - 自动构建发布
-            - 提交: ${{ github.sha }}
+            **ACME-SSL-Breeze** - 单文件自动续期 acme.sh + Nginx Docker 的 SSL 证书工具
             
-            ## 下载方式
-            
+            ### 一行安装/更新（推荐）
             ```bash
-            curl -L https://github.com/freemankevin/acme-ssl-breeze/archive/refs/tags/latest.tar.gz -o acme-ssl-breeze.tar.gz
-            tar -xzf acme-ssl-breeze.tar.gz
-            cd acme-ssl-breeze-latest
-            ```
-          draft: false
-          prerelease: false
-          files: |
-            renew-ssl-cert.sh
-            README.md
-            LICENSE
+            curl -L https://github.com/freemankevin/acme-ssl-breeze/archive/refs/tags/latest.tar.gz | tar -xz && cd acme-ssl-breeze-latest

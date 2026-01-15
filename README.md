@@ -1,45 +1,69 @@
-# acme-ssl-breeze
-
 <p align="center">
-  <img src="https://raw.githubusercontent.com/freemankevin/acme-ssl-breeze/main/logo.svg" alt="logo" width="120"/>
-</p>
-<h1 align="center">ACME-SSL-Breeze</h1>
-<p align="center">
-  <img src="https://github.com/freemankevin/acme-ssl-breeze/workflows/CI/badge.svg" alt="CI"/>
-  <img src="https://img.shields.io/github/license/freemankevin/acme-ssl-breeze" alt="License"/>
-  <img src="https://img.shields.io/github/v/release/freemankevin/acme-ssl-breeze" alt="Release"/>
-</p>
+  <img src="https://raw.githubusercontent.com/freemankevin/acme-ssl-breeze/main/logo.svg" alt="ACME-SSL-Breeze" width="180"/>
+  <br><br>
+  <h1 align="center">ACME-SSL-Breeze</h1>
+  <p align="center">
+    <strong>一条命令 · 零配置焦虑 · 让 SSL 续期像呼吸一样自然</strong><br>
+    基于 acme.sh + Docker Nginx · 支持单域名/泛域名/多服务器批量部署
+  </p>
 
-> 一条命令，零配置焦虑，让 SSL 证书自动续期像呼吸一样自然。  
->
-> 基于 acme.sh + Docker Nginx，支持单域名、泛域名、多服务器批量部署。
+  <p align="center">
+    <a href="https://github.com/freemankevin/acme-ssl-breeze/actions/workflows/ci.yml">
+      <img src="https://github.com/freemankevin/acme-ssl-breeze/workflows/CI/badge.svg" alt="CI Status"/>
+    </a>
+    <a href="https://github.com/freemankevin/acme-ssl-breeze/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/freemankevin/acme-ssl-breeze?style=flat-square&color=success" alt="License"/>
+    </a>
+    <a href="https://github.com/freemankevin/acme-ssl-breeze/releases/latest">
+      <img src="https://img.shields.io/github/v/release/freemankevin/acme-ssl-breeze?style=flat-square&color=blue" alt="Latest Release"/>
+    </a>
+    <img src="https://img.shields.io/github/stars/freemankevin/acme-ssl-breeze?style=social" alt="Stars"/>
+  </p>
+</p>
 
 ---
 
-## ✨ 特性
+## ✨ 核心特性
 
-- 🚀 **开箱即用**：单文件 Bash，无需安装额外依赖
-- 🔒 **安全加固**：私钥仅本机保存，支持 DNS-API / WebRoot 双模式
-- 🔄 **智能续期**：30 天内到期才触发，避免无谓申请
-- 🐳 **Docker 友好**：证书更新后自动 `docker restart nginx`
+- 🚀 **单文件脚本** — 无需额外依赖，开箱即用
+- 🔐 **私钥永不离本地** — 支持 DNS-API / WebRoot 双验证模式
+- 🧠 **智能续期** — 仅 30 天内到期才申请，减少 Let's Encrypt 限额压力
+- 🐳 **Docker 无缝集成** — 证书更新后自动重载 Nginx 容器
+- 📦 **批量友好** — 一键适配多域名、多服务器场景
 
-## 🐳 第一步：部署 Docker 环境
-
-### 1. 创建目录结构
+## 🚀 30 秒快速开始（推荐）
 
 ```bash
-mkdir -p /data/opt/install-middleware && cd /data/opt/install-middleware
+# 一行下载最新版 → 进入目录
+curl -L https://github.com/freemankevin/acme-ssl-breeze/archive/refs/tags/latest.tar.gz | tar -xz && cd acme-ssl-breeze-latest
+
+# 只需改 3 个变量，然后执行
+nano renew-ssl-cert.sh    # 修改 DOMAIN / BASE_DIR / RELOAD_CMD
+chmod +x renew-ssl-cert.sh
+./renew-ssl-cert.sh
+```
+
+> 第一次运行会自动安装 acme.sh 并申请证书，之后加入 cron 即可永不过期！
+
+
+## 📋 完整部署指南
+
+### 1. 准备 Docker Nginx 环境
+
+创建项目目录结构：
+
+```bash
+mkdir -p /data/opt/install-middleware 
+cd /data/opt/install-middleware
 mkdir -p conf certs html data/nginx/logs
 ```
 
-### 2. 配置 docker-compose.yml
-
-创建 `docker-compose.yml` 文件：
+使用推荐的 `docker-compose.yml`：
 
 ```yaml
 services:
   nginx:
-    image: "nginx:1.29.3"
+    image: nginx:alpine 
     deploy:
       resources:
         limits:
@@ -63,11 +87,10 @@ services:
     restart: always
 ```
 
-### 3. 配置 Nginx
-
-创建 `conf/web.conf` 文件：
+Nginx 示例配置（`conf/web.conf`）关键片段：
 
 ```nginx
+# HTTP → HTTPS 跳转 + ACME 验证路径
 upstream gateways {
     least_conn;
     server 127.0.0.1:8080 weight=2;
@@ -80,13 +103,11 @@ server {
     server_tokens off;
     absolute_redirect off;
 
-    # Let's Encrypt 验证路径（不跳转）
     location ^~ /.well-known/acme-challenge/ {
         root /usr/share/nginx/html;
         default_type text/plain;
     }
 
-    # 其他请求仍然跳转 HTTPS
     location / {
         return 308 https://$host:443$request_uri;
     }
@@ -144,67 +165,54 @@ server {
 }
 ```
 
-### 4. 启动服务
+启动：
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
-### 5. 注意事项
-
-Nginx 配置中的 `/.well-known/acme-challenge/` 路径必须保留，用于 ACME 验证
-
-## 🏁 第二步：配置并执行 SSL 证书脚本
-
-### 1. 下载源码包
+### 2. 配置 & 运行 renew-ssl-cert.sh
 
 ```bash
-wget https://github.com/freemankevin/acme-ssl-breeze/archive/refs/heads/main.tar.gz -O acme-ssl-breeze.tar.gz
-tar -xzf acme-ssl-breeze.tar.gz
-cd acme-ssl-breeze-main
+# 已在上方「快速开始」给出
 ```
 
-### 2. 修改配置（仅需 3 处）
+必须修改的 3 个变量：
 
 ```bash
-nano renew-ssl-cert.sh
-# DOMAIN="your.domain.com"
-# BASE_DIR="/data/opt/install-middleware"
-# RELOAD_CMD="docker restart nginx"
+DOMAIN="your.domain.com"                  # 可逗号分隔多个域名
+BASE_DIR="/data/opt/install-middleware"   # 与 docker 卷挂载路径一致
+RELOAD_CMD="docker restart nginx"         # 或 docker compose -f ... restart nginx
 ```
 
-### 3. 赋予执行权限
+### 3. 设置自动续期（强烈推荐）
+
+acme.sh 自带 cron，执行一次脚本后通常已自动添加：
 
 ```bash
-chmod +x renew-ssl-cert.sh
+# 验证是否已加入（一般为每天随机时间）
+crontab -l
 ```
 
-### 4. 一键执行
-
+如未添加，手动加入（示例每天11:40检查）：
 ```bash
-./renew-ssl-cert.sh
+40 11 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" >/dev/null
 ```
 
-### 5. 配置自动续期
+## ⚠️ 注意事项
 
-将以下内容添加到 crontab，实现自动检查证书有效期：
+- 确保证书路径与 Nginx 配置一致（acme.sh 默认生成 `.crt` 和 `.key`）
+- WebRoot 模式需 80 端口开放；DNS 模式更适合 Cloudflare 等
+- 首次申请可能需要几分钟，请耐心等待
+- 建议备份 `/root/.acme.sh` 目录（包含账号密钥）
 
-```bash
-40 11 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
-```
+## 📄 许可证
 
-### 6. 注意事项
+[MIT License](LICENSE) © 2026 freemankevin
 
-- 将 `your.domain.com` 替换为你的实际域名
-- 确保 `BASE_DIR` 配置与 docker-compose.yml 中的路径一致
-- 证书文件会自动生成在 `certs` 目录下
+## ❤️ 感谢
 
+- [acme.sh](https://github.com/acmesh-official/acme.sh) — 极简强大的 ACME 客户端
+- [Let's Encrypt](https://letsencrypt.org) — 免费、可信赖的证书权威
 
-## 📝 许可证
-
-MIT © 2026 [freemankevin](https://github.com/freemankevin)
-
-## 🙏 致谢
-
-- [acme.sh](https://github.com/acmesh-official/acme.sh) —— 强大的 ACME 协议 shell 实现  
-- [Let's Encrypt](https://letsencrypt.org) —— 免费提供 SSL 证书
+欢迎 star ✨ & fork → PR！
