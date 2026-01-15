@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/freemankevin/acme-ssl-breeze/main/logo.svg" alt="ACME-SSL-Breeze" width="180"/>
 </p>
 
-<h1 align="center">ACME-SSL-Breeze</h1>
+<h1 align="center">ACME-SSL-BREEZE</h1>
 
 <p align="center">
   <strong>一条命令 · 零配置焦虑 · 让 SSL 续期像呼吸一样自然</strong>
