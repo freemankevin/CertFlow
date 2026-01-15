@@ -4,7 +4,6 @@
   <h1 align="center">ACME-SSL-Breeze</h1>
   <p align="center">
     <strong>一条命令 · 零配置焦虑 · 让 SSL 续期像呼吸一样自然</strong><br>
-    基于 acme.sh + Docker Nginx · 支持单域名/泛域名/多服务器批量部署
   </p>
 
   <p align="center">

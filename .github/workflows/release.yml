@@ -27,8 +27,9 @@ jobs:
           
           # 核心：每次都覆盖旧的 release body，而不是追加
           body: |
-            **ACME-SSL-Breeze** - 单文件自动续期 acme.sh + Nginx Docker 的 SSL 证书工具
-            
-            ### 一行安装/更新（推荐）
+           
+            ### 使用方法
             ```bash
             curl -L https://github.com/freemankevin/acme-ssl-breeze/archive/refs/tags/latest.tar.gz | tar -xz && cd acme-ssl-breeze-latest
+            ./renew-ssl-cert.sh
+            ```
