@@ -29,7 +29,6 @@ jobs:
         with:
           tag_name: latest
           name: latest
-          body: "使用方法见 README.md"
           prerelease: false
           draft: false
           generate_release_notes: false
