@@ -29,12 +29,11 @@ jobs:
         with:
           tag_name: latest
           name: latest
-          body: "自动同步主分支最新代码"
+          body: "使用方法见 README.md"
           prerelease: false
           draft: false
           generate_release_notes: false
           files: |
-            LICENSE
             README.md
             renew-ssl-cert.sh
           target_commitish: ${{ github.sha }}
