@@ -1,0 +1,42 @@
+#==============================================
+# SSL证书自动续期配置文件示例
+# 复制此文件为 ssl-cert.conf 并修改配置
+#==============================================
+
+# 域名配置（支持多域名，逗号分隔）
+DOMAIN="your.domain.com"
+
+# 路径配置
+BASE_DIR="/data/opt/install-middleware"
+CERT_DIR="${BASE_DIR}/certs"
+WEBROOT_DIR="${BASE_DIR}/html"
+
+# acme.sh路径
+ACME_SH="${HOME}/.acme.sh/acme.sh"
+
+# 重载命令
+RELOAD_CMD="docker restart nginx"
+
+#==============================================
+# 可选配置
+#==============================================
+
+# Webhook通知URL
+WEBHOOK_URL=""
+
+# 日志配置
+ENABLE_LOG=false
+LOG_DIR="${BASE_DIR}/logs"
+
+# Dry-run模式（测试模式）
+DRY_RUN=false
+
+# DNS API配置（用于泛域名证书）
+DNS_API_PROVIDER=""
+DNS_API_TOKEN=""
+
+# 证书密钥长度
+CERT_KEY_LENGTH="4096"
+
+# CA服务器
+CA_SERVER="letsencrypt"

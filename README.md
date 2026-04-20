@@ -1,32 +1,42 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/freemankevin/acme-ssl-breeze/main/logo.svg" alt="ACME-SSL-Breeze" width="180"/>
+  <img src="https://raw.githubusercontent.com/freemankevin/CertFlow/main/logo.svg" alt="CertFlow" width="180"/>
 </p>
-<h1 align="center">ACME-SSL-BREEZE</h1>
+<h1 align="center">CertFlow</h1>
 <p align="center">
   <strong>一条命令 · 零配置焦虑 · 让 SSL 续期像呼吸一样自然</strong>
 </p>
 <p align="center">
-  <a href="https://github.com/freemankevin/acme-ssl-breeze/actions/workflows/ci.yml">
-    <img src="https://github.com/freemankevin/acme-ssl-breeze/actions/workflows/ci.yml/badge.svg" alt="CI Status"/>
+  <a href="https://github.com/freemankevin/CertFlow/actions/workflows/ci.yml">
+    <img src="https://github.com/freemankevin/CertFlow/actions/workflows/ci.yml/badge.svg" alt="CI Status"/>
   </a>
-  <a href="https://github.com/freemankevin/acme-ssl-breeze/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/freemankevin/acme-ssl-breeze?style=flat-square&color=success" alt="License"/>
+  <a href="https://github.com/freemankevin/CertFlow/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/freemankevin/CertFlow?style=flat-square&color=success" alt="License"/>
   </a>
-  <a href="https://github.com/freemankevin/acme-ssl-breeze/releases/latest">
-    <img src="https://img.shields.io/github/v/release/freemankevin/acme-ssl-breeze?style=flat-square&color=blue" alt="Latest Release"/>
+  <a href="https://github.com/freemankevin/CertFlow/releases/latest">
+    <img src="https://img.shields.io/github/v/release/freemankevin/CertFlow?style=flat-square&color=blue" alt="Latest Release"/>
   </a>
-  <a href="https://github.com/freemankevin/acme-ssl-breeze/stargazers">
-    <img src="https://img.shields.io/github/stars/freemankevin/acme-ssl-breeze?style=flat-square" alt="GitHub stars"/>
+  <a href="https://github.com/freemankevin/CertFlow/stargazers">
+    <img src="https://img.shields.io/github/stars/freemankevin/CertFlow?style=flat-square" alt="GitHub stars"/>
   </a>
 </p>
 
 ---
 
+## ✨ 核心特性
+
+- 🚀 **单文件脚本** — 无需额外依赖，开箱即用
+- 🔐 **私钥永不离本地** — 支持 DNS-API / WebRoot 双验证模式
+- 🧠 **智能续期** — 仅 30 天内到期才申请，减少 Let's Encrypt 限额压力
+- 🐳 **Docker 无缝集成** — 证书更新后自动重载 Nginx 容器
+- 📦 **批量友好** — 一键适配多域名、多服务器场景
+- 📝 **配置文件支持** — 无需修改脚本，配置分离更安全
+- 🔔 **通知机制** — 支持 Webhook 通知证书更新状态
+
 ## 🚀 快速开始
 
 ```bash
 # 一行下载最新版 → 进入目录
-curl -L https://github.com/freemankevin/acme-ssl-breeze/archive/refs/tags/latest.tar.gz | tar -xz && cd acme-ssl-breeze-latest
+curl -L https://github.com/freemankevin/CertFlow/archive/refs/tags/latest.tar.gz | tar -xz && cd CertFlow-latest
 
 # 只需改 3 个变量，然后执行
 nano renew-ssl-cert.sh    # 修改 DOMAIN / BASE_DIR / RELOAD_CMD
