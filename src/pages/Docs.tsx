@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FileCode, CheckCircle2, HelpCircle, AlertTriangle, ArrowRight } from 'lucide-react'
+import { FileCode, CheckCircle2, HelpCircle, AlertTriangle, ArrowRight, ArrowUp } from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDocker } from '@fortawesome/free-brands-svg-icons'
 import { useI18n } from '../contexts/I18nContext'
@@ -81,10 +81,23 @@ nano conf/web.conf`
 export function DocsPage() {
   const { t, language } = useI18n()
   const [activeTab, setActiveTab] = useState<'overview' | 'docker' | 'faq'>('overview')
+  const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const tabs = [
     { id: 'overview', icon: FileCode, label: t.docs.tabs.overview },
@@ -517,6 +530,17 @@ docker compose ps`}
           </div>
         </div>
       </section>
+
+      {/* 回到顶部按钮 */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-ssl-blue text-white shadow-lg hover:bg-blue-600 transition-all hover:scale-110"
+          aria-label={language === 'zh' ? '回到顶部' : 'Back to top'}
+        >
+          <ArrowUp className="h-5 w-5" />
+        </button>
+      )}
     </div>
   )
 }
