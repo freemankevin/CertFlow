@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FileCode, CheckCircle2, HelpCircle, AlertTriangle, ArrowRight } from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDocker } from '@fortawesome/free-brands-svg-icons'
@@ -81,6 +81,10 @@ nano conf/web.conf`
 export function DocsPage() {
   const { t, language } = useI18n()
   const [activeTab, setActiveTab] = useState<'overview' | 'docker' | 'faq'>('overview')
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const tabs = [
     { id: 'overview', icon: FileCode, label: t.docs.tabs.overview },
