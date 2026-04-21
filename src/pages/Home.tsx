@@ -3,14 +3,17 @@ import {
   FileCode, 
   Shield, 
   Clock, 
-  Container, 
   Globe, 
   ArrowRight,
   CheckCircle2,
   Zap,
   Bell
 } from 'lucide-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDocker } from '@fortawesome/free-brands-svg-icons'
 import { useI18n } from '../contexts/I18nContext'
+
+const DockerIcon = () => <FontAwesomeIcon icon={faDocker} className="h-6 w-6" />
 
 export function HomePage() {
   const { t, language } = useI18n()
@@ -32,7 +35,7 @@ export function HomePage() {
       description: t.features.smart.description,
     },
     {
-      icon: Container,
+      icon: DockerIcon,
       title: t.features.docker.title,
       description: t.features.docker.description,
     },
@@ -119,11 +122,17 @@ export function HomePage() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature) => {
-              const Icon = feature.icon
+              const isCustomIcon = typeof feature.icon === 'function' && feature.icon.name === 'DockerIcon'
               return (
                 <div key={feature.title} className="feature-card group">
                   <div className="w-12 h-12 rounded-xl bg-ssl-blue/10 dark:bg-ssl-blue/20 flex items-center justify-center mb-4 group-hover:bg-ssl-blue group-hover:text-white transition-colors">
-                    <Icon className="h-6 w-6 text-ssl-blue group-hover:text-white" />
+                    {isCustomIcon ? (
+                      <div className="text-ssl-blue group-hover:text-white transition-colors">
+                        <feature.icon />
+                      </div>
+                    ) : (
+                      <feature.icon className="h-6 w-6 text-ssl-blue group-hover:text-white" />
+                    )}
                   </div>
                   <h3 className={`text-lg font-semibold text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
                     {feature.title}
