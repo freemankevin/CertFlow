@@ -424,10 +424,10 @@ docker compose ps`}
                   </h2>
                   <div className="space-y-6">
                     {[
-                      {
-                        q: language === 'zh' ? '自动续期如何工作？' : 'How does auto renewal work?',
-                        a: language === 'zh' ? 'acme.sh 自带 cron，执行一次脚本后通常已自动添加定时任务。如未添加，手动加入 crontab 即可。' : 'acme.sh includes cron, usually auto-added after first run. If not, add it manually to crontab.'
-                      },
+{
+                         q: language === 'zh' ? '自动续期如何工作？' : 'How does auto renewal work?',
+                         a: language === 'zh' ? 'acme.sh 内置 cron 任务管理，脚本首次运行时会自动添加定时续期任务。' : 'acme.sh includes built-in cron management, auto-adds renewal task on first run.'
+                       },
                       {
                         q: language === 'zh' ? 'Dry-run 模式是什么？' : 'What is Dry-run mode?',
                         a: language === 'zh' ? '测试模式，不实际申请证书：DRY_RUN=true ./renew-ssl-cert.sh' : 'Test mode, no actual certificate: DRY_RUN=true ./renew-ssl-cert.sh'
