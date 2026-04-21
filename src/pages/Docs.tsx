@@ -73,7 +73,10 @@ const downloadConfigFiles = `# 下载 docker-compose.yml
 curl -o docker-compose.yml https://raw.githubusercontent.com/freemankevin/CertFlow/main/docker-compose.yml
 
 # 下载 Nginx 配置文件
-curl -o conf/web.conf https://raw.githubusercontent.com/freemankevin/CertFlow/main/conf/web.conf`
+curl -o conf/web.conf https://raw.githubusercontent.com/freemankevin/CertFlow/main/conf/web.conf
+
+# 编辑配置文件（修改域名、upstream、路由规则等）
+nano conf/web.conf`
 
 export function DocsPage() {
   const { t, language } = useI18n()
