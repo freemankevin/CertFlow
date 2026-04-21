@@ -40,6 +40,9 @@ CA_SERVER="letsencrypt"
 RENEW_THRESHOLD_DAYS=30
 SKIP_DNS_CHECK=false
 
+NGINX_CONF_PATH=""
+AUTO_UPDATE_NGINX_DOMAIN=false
+
 #==============================================
 # 运行时变量
 #==============================================
@@ -174,6 +177,76 @@ show_config_summary() {
     fi
     
     echo "----------------------------------------"
+}
+
+#==============================================
+# 检查并更新 Nginx 配置文件中的域名
+#==============================================
+check_nginx_config_domain() {
+    print_header "检查业务路由配置"
+    
+    if [[ -z "${NGINX_CONF_PATH}" ]]; then
+        log_info "未配置业务路由文件路径，跳过检查"
+        return 0
+    fi
+    
+    if [[ ! -f "${NGINX_CONF_PATH}" ]]; then
+        log_warning "配置文件不存在: ${NGINX_CONF_PATH}"
+        return 0
+    fi
+    
+    local main_domain="${DOMAINS%%,*}"
+    main_domain="${main_domain%% *}"
+    main_domain=$(echo "$main_domain" | xargs)
+    
+    if [[ -z "${main_domain}" ]]; then
+        log_warning "无法获取主域名"
+        return 0
+    fi
+    
+    log_info "主域名: ${main_domain}"
+    log_info "配置文件: ${NGINX_CONF_PATH}"
+    
+    local old_domain_pattern='your\.domain\.com|example\.com|localhost'
+    local domain_found=false
+    local needs_update=false
+    
+    if grep -qiE "${old_domain_pattern}" "${NGINX_CONF_PATH}"; then
+        domain_found=true
+        needs_update=true
+        log_warning "发现示例域名占位符"
+    fi
+    
+    if grep -qi "${main_domain}" "${NGINX_CONF_PATH}"; then
+        domain_found=true
+        if ! needs_update; then
+            log_success "配置文件已使用正确域名: ${main_domain}"
+        fi
+    else
+        if ! "${domain_found}"; then
+            log_warning "配置文件未找到域名配置"
+        fi
+    fi
+    
+    if [[ "${needs_update}" == "true" && "${AUTO_UPDATE_NGINX_DOMAIN}" == "true" ]]; then
+        log_info "自动更新配置文件域名..."
+        
+        local temp_file="${NGINX_CONF_PATH}.tmp"
+        
+        sed -i.bak -E "s/(your\.domain\.com|example\.com|localhost)/${main_domain}/gi" "${NGINX_CONF_PATH}"
+        
+        if [[ -f "${NGINX_CONF_PATH}.bak" ]]; then
+            rm -f "${NGINX_CONF_PATH}.bak"
+        fi
+        
+        log_success "配置文件域名已更新为: ${main_domain}"
+    elif [[ "${needs_update}" == "true" && "${AUTO_UPDATE_NGINX_DOMAIN}" != "true" ]]; then
+        log_warning "配置文件需要手动更新域名"
+        log_info "建议: 将 your.domain.com 替换为 ${main_domain}"
+        log_info "或启用 AUTO_UPDATE_NGINX_DOMAIN=true 自动更新"
+    fi
+    
+    return 0
 }
 
 #==============================================
@@ -757,6 +830,10 @@ EOF
     # 检查依赖
     print_separator
     check_requirements
+    
+    # 检查并更新业务路由配置
+    print_separator
+    check_nginx_config_domain
     
     # 设置 DNS API 环境
     if [[ "${VERIFY_MODE}" == "dns" ]]; then
