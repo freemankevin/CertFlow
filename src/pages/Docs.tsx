@@ -215,7 +215,7 @@ export function DocsPage() {
                   </div>
                 </div>
 
-                <div className="glass-card rounded-lg p-6">
+                <div className="glass-card rounded-lg p-6" id="download-command">
                   <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-4 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
                     {language === 'zh' ? '下载命令' : 'Download Command'}
                   </h2>
@@ -502,20 +502,31 @@ docker compose ps`}
                           Q: {item.q}
                         </h3>
                         {i === 0 ? (
-                          <div className={`text-gray-600 dark:text-gray-400 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
-                            <p className="mb-2">
-                              {language === 'zh' 
-                                ? '请查看概述页面的"下载命令"部分，提供了完整的下载和解压命令。'
-                                : 'Please check the "Download Command" section in the Overview page for the complete download command.'}
-                            </p>
-                            <button
-                              onClick={() => setActiveTab('overview')}
-                              className="inline-flex items-center gap-1 text-ssl-blue hover:text-blue-600"
-                            >
-                              <ArrowRight className="h-4 w-4" />
-                              <span>{language === 'zh' ? '跳转到概述页面' : 'Go to Overview'}</span>
-                            </button>
-                          </div>
+                          <p className={`text-gray-600 dark:text-gray-400 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                            A: {language === 'zh' 
+                              ? <>请查看概述页面的<a 
+                                  href="#download-command"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    setActiveTab('overview')
+                                    setTimeout(() => {
+                                      document.getElementById('download-command')?.scrollIntoView({ behavior: 'smooth' })
+                                    }, 100)
+                                  }}
+                                  className="text-ssl-blue hover:text-blue-600 underline"
+                                >"下载命令"</a>部分，提供了完整的下载和解压命令。</>
+                              : <>Please check the <a 
+                                  href="#download-command"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    setActiveTab('overview')
+                                    setTimeout(() => {
+                                      document.getElementById('download-command')?.scrollIntoView({ behavior: 'smooth' })
+                                    }, 100)
+                                  }}
+                                  className="text-ssl-blue hover:text-blue-600 underline"
+                                >"Download Command"</a> section in the Overview page for the complete download command.</>}
+                          </p>
                         ) : (
                           <p className={`text-gray-600 dark:text-gray-400 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
                             A: {item.a}
