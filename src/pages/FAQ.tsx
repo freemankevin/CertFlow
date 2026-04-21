@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, ReactNode } from 'react'
 import { ChevronDown, ChevronUp, HelpCircle, BookOpen, FolderOpen, ExternalLink } from 'lucide-react'
 import { useI18n } from '../contexts/I18nContext'
 import { CodeBlock } from '../components/CodeBlock'
@@ -6,7 +6,7 @@ import { cn } from '../lib/utils'
 
 interface FAQItem {
   question: string
-  answer: string
+  answer: ReactNode
   category: string
 }
 
@@ -42,7 +42,7 @@ export function FAQPage() {
     {
       category: 'config',
       question: '如何配置多个域名？',
-      answer: '在配置文件中用逗号分隔：DOMAIN="example.com,www.example.com"',
+      answer: <>在配置文件中用逗号分隔：<code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code>="example.com,www.example.com"</>,
     },
     {
       category: 'config',
@@ -57,7 +57,7 @@ export function FAQPage() {
     {
       category: 'usage',
       question: '如何查看日志？',
-      answer: '启用日志：ENABLE_LOG=true，日志位于 ${BASE_DIR}/logs/',
+      answer: <>启用日志：<code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">ENABLE_LOG</code>=true，日志位于 <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">{'${BASE_DIR}'}</code>/logs/</>,
     },
   ] : [
     {
@@ -78,7 +78,7 @@ export function FAQPage() {
     {
       category: 'config',
       question: 'How to configure multiple domains?',
-      answer: 'Use comma separation in config: DOMAIN="example.com,www.example.com"',
+      answer: <>Use comma separation in config: <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code>="example.com,www.example.com"</>,
     },
     {
       category: 'config',
@@ -93,7 +93,7 @@ export function FAQPage() {
     {
       category: 'usage',
       question: 'How to view logs?',
-      answer: 'Enable logging: ENABLE_LOG=true, logs located at ${BASE_DIR}/logs/',
+      answer: <>Enable logging: <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">ENABLE_LOG</code>=true, logs located at <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">{'${BASE_DIR}'}</code>/logs/</>,
     },
   ]
 

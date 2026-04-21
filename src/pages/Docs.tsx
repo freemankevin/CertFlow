@@ -225,7 +225,9 @@ export function DocsPage() {
                   <div className="space-y-4">
                     {[
                       language === 'zh' ? '下载并解压脚本到目标目录' : 'Download and extract script to target directory',
-                      language === 'zh' ? '修改 3 个核心变量: DOMAIN, BASE_DIR, RELOAD_CMD' : 'Modify 3 core variables: DOMAIN, BASE_DIR, RELOAD_CMD',
+                      language === 'zh' 
+                        ? <>修改 3 个核心变量: <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code>, <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">BASE_DIR</code>, <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">RELOAD_CMD</code></>
+                        : <>Modify 3 core variables: <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code>, <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">BASE_DIR</code>, <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">RELOAD_CMD</code></>,
                       language === 'zh' ? '执行脚本，首次运行自动安装 acme.sh 并设置定时续期' : 'Execute script, auto installs acme.sh and sets up cron on first run',
                     ].map((step, i) => (
                       <div key={i} className="flex items-start gap-3">
@@ -257,8 +259,13 @@ export function DocsPage() {
                   </h2>
                   <p className={`text-gray-700 dark:text-gray-300 mb-4 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
                     {language === 'zh' 
-                      ? '复制配置文件模板，默认只需修改 3 个核心变量: DOMAINS、BASE_DIR、RELOAD_CMD 即可，也可根据实际需求进一步配置高级选项。'
-                      : 'Copy the config template. Default requires only 3 core variables: DOMAINS, BASE_DIR, RELOAD_CMD. Advanced options available as needed.'}
+                      ? '复制配置文件模板，修改核心配置项即可快速上手。'
+                      : 'Copy the config template and modify core settings.'}
+                  </p>
+                  <p className={`text-gray-700 dark:text-gray-300 mb-4 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                    {language === 'zh' 
+                      ? <>必填项仅 <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code>、<code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">BASE_DIR</code>、<code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">RELOAD_CMD</code> 三个，其他高级配置按需设置。</>
+                      : <>Only <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code>, <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">BASE_DIR</code>, and <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">RELOAD_CMD</code> are required. Advanced options are optional.</>}
                   </p>
                   <CodeBlock 
                     code={`cp ssl-cert.conf.example ssl-cert.conf
@@ -390,20 +397,26 @@ mkdir -p conf certs html data/nginx/logs`}
                   <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-6 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
                     {language === 'zh' ? '配置相关' : 'Configuration'}
                   </h2>
-                  <div className="space-y-6">
+<div className="space-y-6">
                     {[
 {
-                         q: language === 'zh' ? '如何配置多个域名？' : 'How to configure multiple domains?',
-                         a: language === 'zh' ? '在 ssl-cert.conf 中用逗号或空格分隔：DOMAINS="example.com,www.example.com"' : 'Use comma or space-separated values in ssl-cert.conf: DOMAINS="example.com,www.example.com"'
+                          q: language === 'zh' ? '如何配置多个域名？' : 'How to configure multiple domains?',
+                          a: language === 'zh' 
+                            ? <>在 ssl-cert.conf 中用逗号或空格分隔：<code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code>="example.com,www.example.com"</>
+                            : <>Use comma or space-separated values in ssl-cert.conf: <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code>="example.com,www.example.com"</>
+                        },
+                       {
+                         q: language === 'zh' ? 'BASE_DIR 路径如何设置？' : 'How to set BASE_DIR path?',
+                         a: language === 'zh' 
+                           ? <>默认为 <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">/data/opt/installmiddleware</code>，需与 Docker 卷挂载路径一致。</>
+                           : <>Default is <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">/data/opt/installmiddleware</code>, must match Docker volume mount path.</>
                        },
-                      {
-                        q: language === 'zh' ? 'BASE_DIR 路径如何设置？' : 'How to set BASE_DIR path?',
-                        a: language === 'zh' ? '默认为 /data/opt/installmiddleware，需与 Docker 卷挂载路径一致。' : 'Default is /data/opt/installmiddleware, must match Docker volume mount path.'
-                      },
 {
-                         q: language === 'zh' ? '支持泛域名证书吗？' : 'Does it support wildcard certificates?',
-                         a: language === 'zh' ? '支持！在 ssl-cert.conf 设置 VERIFY_MODE="dns" 并配置 DNS API 提供商。' : 'Yes! Set VERIFY_MODE="dns" in ssl-cert.conf and configure DNS API provider.'
-                       },
+                          q: language === 'zh' ? '支持泛域名证书吗？' : 'Does it support wildcard certificates?',
+                          a: language === 'zh' 
+                            ? <>支持！在 ssl-cert.conf 设置 <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">VERIFY_MODE</code>="dns" 并配置 DNS API 提供商。</>
+                            : <>Yes! Set <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">VERIFY_MODE</code>="dns" in ssl-cert.conf and configure DNS API provider.</>
+                        },
                     ].map((item, i) => (
                       <div key={i} className="border-b border-gray-200/50 dark:border-gray-700/50 pb-4 last:border-0 last:pb-0">
                         <h3 className={`font-medium text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>

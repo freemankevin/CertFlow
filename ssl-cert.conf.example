@@ -15,7 +15,7 @@
 DOMAINS="your.domain.com"
 
 # 路径配置
-BASE_DIR="/data/opt/install-middleware"
+BASE_DIR="/data/opt/installmiddleware"
 CERT_DIR="${BASE_DIR}/certs"
 WEBROOT_DIR="${BASE_DIR}/html"
 

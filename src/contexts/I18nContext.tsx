@@ -64,7 +64,7 @@ const translations = {
       subtitle: '三步完成部署',
       steps: [
         '下载脚本并解压到目标目录',
-        '修改 DOMAIN / BASE_DIR / RELOAD_CMD 三个变量',
+        <>修改 <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code> / <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">BASE_DIR</code> / <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">RELOAD_CMD</code> 三个变量</>,
         '执行脚本，首次运行自动安装 acme.sh',
       ],
       command: 'curl -L ... | tar -xz',
@@ -149,7 +149,7 @@ const translations = {
       subtitle: 'Three steps to deploy',
       steps: [
         'Download and extract to target directory',
-        'Modify DOMAIN / BASE_DIR / RELOAD_CMD variables',
+        <>Modify <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">DOMAINS</code> / <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">BASE_DIR</code> / <code className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">RELOAD_CMD</code> variables</>,
         'Run script, auto installs acme.sh on first run',
       ],
       command: 'curl -L ... | tar -xz',
