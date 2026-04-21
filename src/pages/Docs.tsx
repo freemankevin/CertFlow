@@ -474,9 +474,6 @@ docker compose ps`}
                     {[
                       {
                         q: language === 'zh' ? '如何下载最新版本？' : 'How to download the latest version?',
-                        a: language === 'zh' 
-                          ? '请查看概述页面的"下载命令"部分，提供了完整的下载和解压命令。'
-                          : 'Please check the "Download Command" section in the Overview page for the complete download command.'
                       },
                       {
                         q: language === 'zh' ? 'acme.sh 未安装怎么办？' : 'What if acme.sh is not installed?',
@@ -487,9 +484,26 @@ docker compose ps`}
                         <h3 className={`font-medium text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
                           Q: {item.q}
                         </h3>
-                        <p className={`text-gray-600 dark:text-gray-400 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
-                          A: {item.a}
-                        </p>
+                        {i === 0 ? (
+                          <div className={`text-gray-600 dark:text-gray-400 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                            <p className="mb-2">
+                              {language === 'zh' 
+                                ? '请查看概述页面的"下载命令"部分，提供了完整的下载和解压命令。'
+                                : 'Please check the "Download Command" section in the Overview page for the complete download command.'}
+                            </p>
+                            <button
+                              onClick={() => setActiveTab('overview')}
+                              className="inline-flex items-center gap-1 text-ssl-blue hover:text-blue-600"
+                            >
+                              <ArrowRight className="h-4 w-4" />
+                              <span>{language === 'zh' ? '跳转到概述页面' : 'Go to Overview'}</span>
+                            </button>
+                          </div>
+                        ) : (
+                          <p className={`text-gray-600 dark:text-gray-400 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                            A: {item.a}
+                          </p>
+                        )}
                       </div>
                     ))}
                   </div>
