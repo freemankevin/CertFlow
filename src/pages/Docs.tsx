@@ -150,18 +150,18 @@ export function DocsPage() {
                     </div>
                     <div className="flex-1">
                       <h3 className={`text-lg font-semibold text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
-                        {language === 'zh' ? '需要 Docker 环境？' : 'Need Docker Environment?'}
+                        {language === 'zh' ? '需要 Docker + Nginx 环境？' : 'Need Docker & Nginx Environment?'}
                       </h3>
                       <p className={`text-gray-600 dark:text-gray-400 mb-4 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
                         {language === 'zh'
-                          ? '如果服务器尚未安装 Docker，可以查看 Docker 部署指南，使用离线安装包快速部署环境。'
-                          : 'If Docker is not installed, check the Docker deployment guide for offline installation.'}
+                          ? '如果服务器尚未安装 Docker 和 Nginx，可以查看 Docker+Nginx 部署指南，使用离线安装包快速部署完整环境。'
+                          : 'If Docker and Nginx are not installed, check the Docker+Nginx deployment guide for offline installation.'}
                       </p>
                       <button
                         onClick={() => setActiveTab('docker')}
                         className="inline-flex items-center gap-2 text-ssl-blue hover:text-blue-600 font-medium"
                       >
-                        <span>{language === 'zh' ? '查看 Docker 部署指南' : 'View Docker Deployment Guide'}</span>
+                        <span>{language === 'zh' ? '查看 Docker+Nginx 部署指南' : 'View Docker+Nginx Guide'}</span>
                         <ArrowRight className="h-4 w-4" />
                       </button>
                     </div>
