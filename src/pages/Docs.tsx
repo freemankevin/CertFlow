@@ -289,20 +289,36 @@ nano ssl-cert.conf`}
                   </h2>
                   <p className={`text-gray-600 dark:text-gray-400 mb-2 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
                     {language === 'zh'
-                      ? '从 GitHub 仓库下载 docker-compose.yml 和 Nginx 配置文件。'
-                      : 'Download docker-compose.yml and Nginx config from GitHub repository.'}
+                      ? '从 GitHub 仓库下载 docker-compose.yml 和 Nginx 配置文件模板。'
+                      : 'Download docker-compose.yml and Nginx config templates from GitHub repository.'}
                   </p>
                   <div className="mb-4 flex items-start gap-3 p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700/50">
                     <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
                     <div>
                       <h3 className={`font-medium text-yellow-800 dark:text-yellow-200 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
-                        {language === 'zh' ? '重要提示' : 'Important Note'}
+                        {language === 'zh' ? '定制化修改' : 'Customization Required'}
                       </h3>
-                      <p className={`text-sm text-yellow-700 dark:text-yellow-300 mt-1 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
-                        {language === 'zh' 
-                          ? '下载后需要修改 conf/web.conf 中的 your.domain.com 为实际域名。'
-                          : 'After download, modify your.domain.com in conf/web.conf to your actual domain.'}
-                      </p>
+                      <div className={`text-sm text-yellow-700 dark:text-yellow-300 mt-2 space-y-2 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                        {language === 'zh' ? (
+                          <>
+                            <p>下载后需根据实际业务修改 <code className="px-1.5 py-0.5 rounded bg-yellow-100 dark:bg-yellow-800/50 font-mono text-xs">conf/web.conf</code>：</p>
+                            <ul className="list-disc list-inside space-y-1 ml-2">
+                              <li>替换 <code className="px-1.5 py-0.5 rounded bg-yellow-100 dark:bg-yellow-800/50 font-mono text-xs">your.domain.com</code> 为实际域名</li>
+                              <li>调整 upstream 配置（后端服务地址）</li>
+                              <li>修改业务路由规则（location 配置）</li>
+                            </ul>
+                          </>
+                        ) : (
+                          <>
+                            <p>After download, customize <code className="px-1.5 py-0.5 rounded bg-yellow-100 dark:bg-yellow-800/50 font-mono text-xs">conf/web.conf</code> for your needs:</p>
+                            <ul className="list-disc list-inside space-y-1 ml-2">
+                              <li>Replace <code className="px-1.5 py-0.5 rounded bg-yellow-100 dark:bg-yellow-800/50 font-mono text-xs">your.domain.com</code> with actual domain</li>
+                              <li>Adjust upstream configuration (backend service addresses)</li>
+                              <li>Modify routing rules (location blocks)</li>
+                            </ul>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <CodeBlock 
