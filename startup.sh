@@ -40,8 +40,10 @@ print_log() {
     local message="$2"
     local color="$3"
     
-    local timestamp=$(date '+%Y-%m-%d %H:%M:%S.%3N')
-    local level_padded=$(printf "%-8s" "[$level]")
+    local timestamp
+    timestamp=$(date '+%Y-%m-%d %H:%M:%S.%3N')
+    local level_padded
+    level_padded=$(printf "%-8s" "[$level]")
     
     echo -e "${COLOR_TIMESTAMP}${timestamp}${COLOR_RESET} ${color}${level_padded}${COLOR_RESET} ${message}"
 }
@@ -123,7 +125,8 @@ check_node_version() {
     
     local node_version
     node_version=$(node -v | sed 's/v//')
-    local node_major=$(echo "$node_version" | cut -d. -f1)
+    local node_major
+    node_major=$(echo "$node_version" | cut -d. -f1)
     
     if [[ "$node_major" -lt "$NODE_MIN_VERSION" ]]; then
         log_error "❌ Node.js 版本过低: ${COLOR_VALUE}${node_version}${COLOR_RESET}"
@@ -140,7 +143,8 @@ check_node_version() {
     
     local npm_version
     npm_version=$(npm -v)
-    local npm_major=$(echo "$npm_version" | cut -d. -f1)
+    local npm_major
+    npm_major=$(echo "$npm_version" | cut -d. -f1)
     
     if [[ "$npm_major" -lt "$NPM_MIN_VERSION" ]]; then
         log_warning "⚠️  npm 版本较低: ${COLOR_VALUE}${npm_version}${COLOR_RESET}"
@@ -216,7 +220,7 @@ install_dependencies() {
                 pkg_count=$(find node_modules -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
                 ;;
             MINGW*|MSYS*|CYGWIN*)
-                pkg_count=$(ls -d node_modules/*/ 2>/dev/null | wc -l | tr -d ' ')
+                pkg_count=$(find node_modules -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
                 ;;
         esac
         

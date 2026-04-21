@@ -11,7 +11,9 @@ set -euo pipefail
 #==============================================
 # 版本信息
 #==============================================
+# shellcheck disable=SC2034
 readonly SCRIPT_VERSION="2.0.0"
+# shellcheck disable=SC2034
 readonly SCRIPT_NAME="CertFlow"
 
 #==============================================
@@ -49,6 +51,7 @@ AUTO_UPDATE_NGINX_DOMAIN=false
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_FILE="${SCRIPT_DIR}/ssl-cert.conf"
 LOG_FILE=""
+# shellcheck disable=SC2034
 CURRENT_DOMAIN=""
 STATS_TOTAL=0
 STATS_SUCCESS=0
@@ -231,8 +234,6 @@ check_nginx_config_domain() {
     if [[ "${needs_update}" == "true" && "${AUTO_UPDATE_NGINX_DOMAIN}" == "true" ]]; then
         log_info "自动更新配置文件域名..."
         
-        local temp_file="${NGINX_CONF_PATH}.tmp"
-        
         sed -i.bak -E "s/(your\.domain\.com|example\.com|localhost)/${main_domain}/gi" "${NGINX_CONF_PATH}"
         
         if [[ -f "${NGINX_CONF_PATH}.bak" ]]; then
@@ -383,7 +384,8 @@ backup_old_certs() {
         return 0
     fi
     
-    local backup_dir="${CERT_DIR}/bak$(date +%Y%m%d%H%M%S)"
+    local backup_dir
+    backup_dir="${CERT_DIR}/bak$(date +%Y%m%d%H%M%S)"
     mkdir -p "${backup_dir}"
     
     cp "${CERT_DIR}/${domain}".* "${backup_dir}/" 2>/dev/null || true
@@ -442,7 +444,8 @@ test_verify_path() {
     log_info "测试 HTTP 验证路径"
     
     local acme_dir="${WEBROOT_DIR}/.well-known/acme-challenge"
-    local test_file="${acme_dir}/test.txt"
+    local test_file
+    test_file="${acme_dir}/test.txt"
     local test_content="acme-test-$(date +%s)"
     
     echo "${test_content}" > "${test_file}"
