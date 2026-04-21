@@ -4,7 +4,7 @@ import hljs from 'highlight.js/lib/core'
 import bash from 'highlight.js/lib/languages/bash'
 import yaml from 'highlight.js/lib/languages/yaml'
 import nginx from 'highlight.js/lib/languages/nginx'
-import 'highlight.js/styles/github-dark.css'
+import 'highlight.js/styles/atom-one-dark.css'
 import { cn } from '../lib/utils'
 
 hljs.registerLanguage('bash', bash)
@@ -48,40 +48,40 @@ export function CodeBlock({ code, language = 'bash', filename, className, showLi
       <div className="code-header">
         <div className="flex items-center gap-2">
           <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-500/80" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-            <div className="w-3 h-3 rounded-full bg-green-500/80" />
+            <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+            <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
           </div>
           {filename && (
-            <span className="ml-3 text-sm text-gray-400 dark:text-gray-500 font-mono">
+            <span className="ml-3 text-xs text-gray-400 font-medium tracking-wide">
               {filename}
             </span>
           )}
         </div>
         <button
           onClick={handleCopy}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-400 dark:text-gray-500 hover:text-white dark:hover:text-gray-200 bg-gray-700/50 dark:bg-gray-600/50 hover:bg-gray-700 dark:hover:bg-gray-600 rounded transition-colors"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-gray-400 hover:text-white bg-gray-700/40 hover:bg-gray-700/60 rounded transition-all"
           title={copied ? 'Copied!' : 'Copy code'}
         >
           {copied ? (
-            <Check className="h-3.5 w-3.5" />
+            <Check className="h-3.5 w-3.5 text-green-400" />
           ) : (
             <Copy className="h-3.5 w-3.5" />
           )}
-          {copied ? 'Copied!' : 'Copy'}
+          {copied ? 'Copied' : 'Copy'}
         </button>
       </div>
       <div className="code-content scrollbar-thin">
-        <pre className="text-gray-300 dark:text-gray-300">
+        <pre className="text-gray-200">
           {showLineNumbers ? (
             <table className="w-full border-collapse">
               <tbody>
                 {rawLines.map((_, i) => (
-                  <tr key={i} className="hover:bg-gray-800/30 dark:hover:bg-gray-800/30">
-                    <td className="pr-4 text-right text-gray-500 dark:text-gray-600 select-none w-[3.5rem] min-w-[3.5rem]">
+                  <tr key={i} className="code-line">
+                    <td className="line-number">
                       {i + 1}
                     </td>
-                    <td className="whitespace-pre">
+                    <td className="whitespace-pre font-mono">
                       <code dangerouslySetInnerHTML={{ __html: highlightedLines[i] || ' ' }} />
                     </td>
                   </tr>

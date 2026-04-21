@@ -1,3 +1,6 @@
+/* JetBrains Mono 字体 - 专业代码字体 */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -114,16 +117,58 @@
     @apply p-6 rounded-lg glass-card hover-lift;
   }
   
+  /* 专业代码块样式 - VSCode 风格 */
   .code-block {
-    @apply bg-gray-900 dark:bg-gray-950 rounded-lg overflow-hidden border border-gray-700/50 dark:border-gray-800/50;
+    @apply rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700/50;
+    background: linear-gradient(180deg, #1e1e1e 0%, #252526 100%);
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace;
+    font-size: 14px;
+    font-feature-settings: 'liga' on, 'calt' on;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .dark .code-block {
+    border-color: rgba(255, 255, 255, 0.1);
   }
   
   .code-header {
-    @apply flex items-center justify-between px-4 py-3 bg-gray-800/50 dark:bg-gray-900/50 border-b border-gray-700/50 dark:border-gray-800/50;
+    @apply flex items-center justify-between px-4 py-2.5;
+    background: rgba(45, 45, 45, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .code-content {
-    @apply p-4 overflow-x-auto font-mono text-sm leading-relaxed;
+    @apply p-4 overflow-x-auto;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    letter-spacing: 0.3px;
+    font-feature-settings: 'liga' on, 'calt' on;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* 代码行样式 */
+  .code-line {
+    min-height: 22px;
+    padding: 0 4px;
+    border-radius: 2px;
+  }
+  
+  .code-line:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+  
+  /* 行号样式 */
+  .line-number {
+    color: rgba(115, 115, 115, 0.8);
+    text-align: right;
+    user-select: none;
+    padding-right: 16px;
+    min-width: 50px;
+    font-size: 12px;
+    letter-spacing: -0.5px;
   }
 }
 
@@ -136,14 +181,15 @@
     text-rendering: optimizeLegibility;
   }
   
+  /* 代码块滚动条 - VSCode 风格 */
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+    scrollbar-color: rgba(100, 100, 100, 0.4) transparent;
   }
   
   .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
   }
   
   .scrollbar-thin::-webkit-scrollbar-track {
@@ -151,11 +197,131 @@
   }
   
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: rgba(155, 155, 155, 0.5);
-    border-radius: 3px;
+    background-color: rgba(100, 100, 100, 0.4);
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(100, 100, 100, 0.6);
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-corner {
+    background: transparent;
   }
   
   .dark .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: rgba(155, 155, 155, 0.3);
+    background-color: rgba(100, 100, 100, 0.5);
   }
+}
+
+/* Highlight.js 语法高亮增强 - VSCode One Dark 风格 */
+.hljs {
+  background: transparent !important;
+  color: #abb2bf !important;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370 !important;
+  font-style: italic !important;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd !important;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75 !important;
+}
+
+.hljs-link {
+  color: #61afef !important;
+}
+
+.hljs-literal {
+  color: #56b6c2 !important;
+}
+
+.hljs-regexp,
+.hljs-addition,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-meta-string {
+  color: #98c379 !important;
+}
+
+.hljs-string,
+.hljs-meta,
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-title,
+.hljs-class,
+.hljs-number {
+  color: #d19a66 !important;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-tag,
+.hljs-subst,
+.hljs-emphasis,
+.hljs-strong {
+  color: #e06c75 !important;
+}
+
+.hljs-function,
+.hljs-params {
+  color: #61afef !important;
+}
+
+.hljs-tag .hljs-attr,
+.hljs-tag .hljs-name {
+  color: #e06c75 !important;
+}
+
+.hljs-tag .hljs-attr .hljs-string {
+  color: #98c379 !important;
+}
+
+/* Bash 特殊样式 */
+.hljs.language-bash .hljs-built_in,
+.hljs.language-sh .hljs-built_in {
+  color: #61afef !important;
+}
+
+.hljs.language-bash .hljs-variable,
+.hljs.language-sh .hljs-variable {
+  color: #e06c75 !important;
+}
+
+/* YAML 样式 */
+.hljs.language-yaml .hljs-attr {
+  color: #56b6c2 !important;
+}
+
+.hljs.language-yaml .hljs-string {
+  color: #98c379 !important;
+}
+
+/* Nginx 样式 */
+.hljs.language-nginx .hljs-section {
+  color: #c678dd !important;
+}
+
+.hljs.language-nginx .hljs-attr {
+  color: #d19a66 !important;
 }
