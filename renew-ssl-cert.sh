@@ -18,7 +18,7 @@ readonly SCRIPT_NAME="CertFlow"
 # 默认配置（可被配置文件覆盖）
 #==============================================
 DOMAINS=""
-BASE_DIR="/data/opt/install-middleware"
+BASE_DIR="/data/opt/installmiddleware"
 CERT_DIR=""
 WEBROOT_DIR=""
 ACME_SH="${HOME}/.acme.sh/acme.sh"

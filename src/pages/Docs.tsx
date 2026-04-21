@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FileCode, CheckCircle2, HelpCircle, AlertTriangle } from 'lucide-react'
+import { FileCode, CheckCircle2, HelpCircle, AlertTriangle, ArrowRight } from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDocker } from '@fortawesome/free-brands-svg-icons'
 import { useI18n } from '../contexts/I18nContext'
@@ -17,7 +17,7 @@ const configExample = `#==============================================
 DOMAINS="your.domain.com"
 
 # 路径配置
-BASE_DIR="/data/opt/install-middleware"
+BASE_DIR="/data/opt/installmiddleware"
 CERT_DIR="\${BASE_DIR}/certs"
 WEBROOT_DIR="\${BASE_DIR}/html"
 
@@ -54,10 +54,10 @@ cd docker-offline-v29.4.1
 sudo bash packages/scripts/install.sh`
 
 const createDirs = `# 创建部署目录
-mkdir -p /data/opt/install-middleware
+mkdir -p /data/opt/installmiddleware
 
 # 进入目录
-cd /data/opt/install-middleware
+cd /data/opt/installmiddleware
 
 # 创建子目录
 # conf     - Nginx 配置文件目录
@@ -140,6 +140,31 @@ export function DocsPage() {
                         </p>
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                <div className="glass-card rounded-lg p-6 border-l-4 border-l-ssl-blue bg-blue-50/50 dark:bg-blue-900/20">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-ssl-blue/10 dark:bg-ssl-blue/20 flex items-center justify-center">
+                      <DockerIcon />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className={`text-lg font-semibold text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
+                        {language === 'zh' ? '需要 Docker 环境？' : 'Need Docker Environment?'}
+                      </h3>
+                      <p className={`text-gray-600 dark:text-gray-400 mb-4 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                        {language === 'zh'
+                          ? '如果服务器尚未安装 Docker，可以查看 Docker 部署指南，使用离线安装包快速部署环境。'
+                          : 'If Docker is not installed, check the Docker deployment guide for offline installation.'}
+                      </p>
+                      <button
+                        onClick={() => setActiveTab('docker')}
+                        className="inline-flex items-center gap-2 text-ssl-blue hover:text-blue-600 font-medium"
+                      >
+                        <span>{language === 'zh' ? '查看 Docker 部署指南' : 'View Docker Deployment Guide'}</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -270,17 +295,12 @@ nano ssl-cert.conf`}
                   <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
                     {language === 'zh' ? '下载配置文件' : 'Download Configuration Files'}
                   </h2>
-                  <p className={`text-gray-600 dark:text-gray-400 mb-4 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                  <p className={`text-gray-600 dark:text-gray-400 mb-2 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
                     {language === 'zh'
                       ? '从 GitHub 仓库下载 docker-compose.yml 和 Nginx 配置文件。'
                       : 'Download docker-compose.yml and Nginx config from GitHub repository.'}
                   </p>
-                  <CodeBlock 
-                    code={downloadConfigFiles}
-                    language="bash"
-                    filename="Terminal"
-                  />
-                  <div className="mt-4 flex items-start gap-3 p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700/50">
+                  <div className="mb-4 flex items-start gap-3 p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700/50">
                     <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
                     <div>
                       <h3 className={`font-medium text-yellow-800 dark:text-yellow-200 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
@@ -293,6 +313,11 @@ nano ssl-cert.conf`}
                       </p>
                     </div>
                   </div>
+                  <CodeBlock 
+                    code={downloadConfigFiles}
+                    language="bash"
+                    filename="Terminal"
+                  />
                 </div>
 
                 <div className="glass-card rounded-lg p-6">
