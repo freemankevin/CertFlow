@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply antialiased bg-gray-50 text-gray-900;
+    line-height: 1.6;
+  }
+  
+  .dark body {
+    @apply bg-gray-950 text-gray-100;
+  }
+  
+  :lang(zh) {
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  }
+  
+  :lang(zh) h1,
+  :lang(zh) h2,
+  :lang(zh) h3 {
+    font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif CN', serif;
+    letter-spacing: 0.05em;
+  }
+  
+  :lang(en) h1,
+  :lang(en) h2,
+  :lang(en) h3,
+  .font-display {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  
+  ::selection {
+    @apply bg-ssl-blue/20 text-ssl-dark;
+  }
+  
+  .dark ::selection {
+    @apply bg-ssl-blue/30 text-white;
+  }
+}
+
+@layer components {
+  .font-elegant-zh {
+    font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif CN', serif;
+    letter-spacing: 0.05em;
+  }
+  
+  .font-body-zh {
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-weight: 400;
+  }
+  
+  .font-elegant {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  
+  .font-body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+  }
+  
+  .glass {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-gray-700/30;
+  }
+  
+  .glass-card {
+    @apply bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl shadow-gray-900/5;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl;
+  }
+  
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-ssl-blue rounded-lg 
+           hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ssl-blue 
+           transition-all duration-200 shadow-lg shadow-ssl-blue/25;
+  }
+  
+  .dark .btn-primary {
+    @apply focus:ring-offset-gray-950 shadow-ssl-blue/20 hover:shadow-xl hover:shadow-ssl-blue/30;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-gray-700 dark:text-gray-200 
+           bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 
+           rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 
+           focus:ring-offset-2 focus:ring-ssl-blue transition-all duration-200;
+  }
+  
+  .btn-glass {
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium 
+           bg-white/20 dark:bg-gray-800/40 backdrop-blur-lg border border-white/30 dark:border-gray-600/40 
+           rounded-lg hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-200;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .feature-card {
+    @apply p-6 rounded-lg glass-card hover-lift;
+  }
+  
+  .code-block {
+    @apply bg-gray-900 dark:bg-gray-950 rounded-lg overflow-hidden border border-gray-700/50 dark:border-gray-800/50;
+  }
+  
+  .code-header {
+    @apply flex items-center justify-between px-4 py-3 bg-gray-800/50 dark:bg-gray-900/50 border-b border-gray-700/50 dark:border-gray-800/50;
+  }
+  
+  .code-content {
+    @apply p-4 overflow-x-auto font-mono text-sm leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  
+  .font-optimized {
+    text-rendering: optimizeLegibility;
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.5);
+    border-radius: 3px;
+  }
+  
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.3);
+  }
+}

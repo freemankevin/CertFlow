@@ -1,0 +1,24 @@
+services:
+  nginx:
+    image: nginx:alpine 
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - TZ=Asia/Shanghai
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    volumes:
+      - ./conf/web.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs:/etc/ssl/private:ro
+      - ./html:/usr/share/nginx/html
+      - ./data/nginx/logs:/var/log/nginx:rw
+    restart: always
