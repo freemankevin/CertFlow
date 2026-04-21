@@ -45,12 +45,15 @@ RELOAD_CMD="docker restart nginx"
 # Webhook 通知 URL（留空则不发送）
 WEBHOOK_URL=""`
 
-const dockerOfflineInstall = `# 下载 Docker 离线安装包
-wget https://github.com/freemankevin/docker-offline/releases/download/v29.4.1/docker-offline-v29.4.1.tar.gz
+const dockerOfflineInstall = `# 获取最新版本号
+VERSION=$(curl -s https://api.github.com/repos/freemankevin/docker-offline/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\\1/')
+
+# 下载 Docker 离线安装包
+wget https://github.com/freemankevin/docker-offline/releases/download/\${VERSION}/docker-offline-\${VERSION}.tar.gz
 
 # 解压并安装
-tar -xzf docker-offline-v29.4.1.tar.gz
-cd docker-offline-v29.4.1
+tar -xzf docker-offline-\${VERSION}.tar.gz
+cd docker-offline-\${VERSION}
 sudo bash packages/scripts/install.sh`
 
 const createDirs = `# 创建部署目录
@@ -257,17 +260,6 @@ nano ssl-cert.conf`}
                       ? '推荐使用离线安装包，快速部署 Docker 环境。'
                       : 'Recommended to use offline package for quick Docker deployment.'}
                   </p>
-                  <div className="mb-4 flex items-center gap-2">
-                    <a 
-                      href="https://github.com/freemankevin/docker-offline/releases" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-ssl-blue hover:text-blue-600 text-sm"
-                    >
-                      <DockerIcon />
-                      <span>{language === 'zh' ? '获取最新版本' : 'Get latest version'}</span>
-                    </a>
-                  </div>
                   <CodeBlock 
                     code={dockerOfflineInstall}
                     language="bash"
