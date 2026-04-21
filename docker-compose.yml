@@ -1,10 +1,10 @@
 services:
   nginx:
     image: nginx:alpine 
-    deploy:
-      resources:
-        limits:
-          memory: 4096M
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 4096M
     container_name: nginx
     ports:
       - "80:80"

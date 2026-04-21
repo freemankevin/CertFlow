@@ -71,7 +71,6 @@ const translations = {
     },
     docs: {
       title: '部署文档',
-      subtitle: '完整部署指南',
       tabs: {
         overview: '概述',
         docker: 'Docker Nginx',
@@ -156,11 +155,10 @@ const translations = {
     },
     docs: {
       title: 'Deployment Docs',
-      subtitle: 'Complete deployment guide',
       tabs: {
         overview: 'Overview',
         docker: 'Docker Nginx',
-        config: 'Config',
+        config: 'Configuration',
         cron: 'Auto Renewal',
       },
     },

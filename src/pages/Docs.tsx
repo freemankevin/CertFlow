@@ -8,105 +8,6 @@ import { cn } from '../lib/utils'
 
 const DockerIcon = () => <FontAwesomeIcon icon={faDocker} className="h-4 w-4" />
 
-const dockerComposeYaml = `services:
-  nginx:
-    image: nginx:alpine 
-    deploy:
-      resources:
-        limits:
-          memory: 4096M
-    container_name: nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      - TZ=Asia/Shanghai
-    healthcheck:
-      test: ["CMD", "nginx", "-t"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    volumes:
-      - ./conf/web.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./certs:/etc/ssl/private:ro
-      - ./html:/usr/share/nginx/html
-      - ./data/nginx/logs:/var/log/nginx:rw
-    restart: always`
-
-const nginxConf = `# HTTP → HTTPS 跳转 + ACME 验证路径
-upstream gateways {
-    least_conn;
-    server 127.0.0.1:8080 weight=2;
-    server 127.0.0.1:8082 weight=2;
-}
-
-server {
-    listen 80;
-    server_name your.domain.com;
-    server_tokens off;
-    absolute_redirect off;
-
-    location ^~ /.well-known/acme-challenge/ {
-        root /usr/share/nginx/html;
-        default_type text/plain;
-    }
-
-    location / {
-        return 308 https://$host:443$request_uri;
-    }
-}
-
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    server_name your.domain.com;
-    server_tokens off;
-    absolute_redirect off;
-
-    ssl_certificate     /etc/ssl/private/your.domain.com.crt;
-    ssl_certificate_key /etc/ssl/private/your.domain.com.key;
-
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_prefer_server_ciphers on;
-    ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
-    ssl_ecdh_curve secp384r1;
-    ssl_session_cache shared:SSL:10m;
-    ssl_session_tickets off;
-
-    gzip  on;
-    gzip_min_length 1k;
-    gzip_comp_level 3;
-    gzip_types text/plain application/javascript application/x-javascript text/javascript text/xml text/css;
-    gzip_disable "MSIE [1-6]\\.";
-
-    client_max_body_size  2000m;
-    client_header_timeout 1800s;
-    client_body_timeout   1800s;
-
-    proxy_connect_timeout 75s;
-    proxy_read_timeout    1800s;
-    proxy_send_timeout    1800s;
-
-    location = / {
-        return 301 /dashboard;
-    }
-
-    location /dashboard {
-        alias /usr/share/nginx/html/dashboard;
-        index index.html index.htm;
-        try_files $uri $uri/ $uri/index.html;
-    }
-
-    location ^~/api/ {
-        proxy_pass http://gateways/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $remote_addr,$host,$proxy_add_x_forwarded_for;
-        add_header backendIP $upstream_addr;
-        add_header backendCode $upstream_status;
-    }
-}`
-
 const configExample = `#==============================================
 # 核心配置（必填）
 #==============================================
@@ -144,6 +45,33 @@ RELOAD_CMD="docker restart nginx"
 # Webhook 通知 URL（留空则不发送）
 WEBHOOK_URL=""`
 
+const dockerOfflineInstall = `# 下载 Docker 离线安装包
+wget https://github.com/freemankevin/docker-offline/releases/download/v29.4.1/docker-offline-v29.4.1.tar.gz
+
+# 解压并安装
+tar -xzf docker-offline-v29.4.1.tar.gz
+cd docker-offline-v29.4.1
+sudo bash packages/scripts/install.sh`
+
+const createDirs = `# 创建部署目录
+mkdir -p /data/opt/install-middleware
+
+# 进入目录
+cd /data/opt/install-middleware
+
+# 创建子目录
+# conf     - Nginx 配置文件目录
+# certs    - SSL 证书存放目录
+# html     - WebRoot 验证目录（ACME 验证文件）
+# data     - Nginx 日志等数据目录
+mkdir -p conf certs html data/nginx/logs`
+
+const downloadConfigFiles = `# 下载 docker-compose.yml
+curl -o docker-compose.yml https://raw.githubusercontent.com/freemankevin/CertFlow/main/docker-compose.yml
+
+# 下载 Nginx 配置文件
+curl -o conf/web.conf https://raw.githubusercontent.com/freemankevin/CertFlow/main/conf/web.conf`
+
 export function DocsPage() {
   const { t, language } = useI18n()
   const [activeTab, setActiveTab] = useState<'overview' | 'docker' | 'faq'>('overview')
@@ -158,12 +86,9 @@ export function DocsPage() {
     <div className="animate-fade-in">
       <section className="py-12 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm">
         <div className="container-custom">
-          <h1 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
+          <h1 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
             {t.docs.title}
           </h1>
-          <p className={`text-gray-600 dark:text-gray-400 max-w-2xl ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
-            {t.docs.subtitle}
-          </p>
         </div>
       </section>
 
@@ -299,60 +224,87 @@ nano ssl-cert.conf`}
             {activeTab === 'docker' && (
               <div className="space-y-8 animate-fade-in">
                 <div className="glass-card rounded-lg p-6">
-                  <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-4 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
-                    {language === 'zh' ? '目录结构' : 'Directory Structure'}
+                  <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
+                    {language === 'zh' ? 'Docker 环境安装' : 'Docker Installation'}
                   </h2>
+                  <p className={`text-gray-600 dark:text-gray-400 mb-4 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                    {language === 'zh'
+                      ? '推荐使用离线安装包，快速部署 Docker 环境。'
+                      : 'Recommended to use offline package for quick Docker deployment.'}
+                  </p>
+                  <div className="mb-4 flex items-center gap-2">
+                    <a 
+                      href="https://github.com/freemankevin/docker-offline/releases" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-ssl-blue hover:text-blue-600 text-sm"
+                    >
+                      <DockerIcon />
+                      <span>{language === 'zh' ? '获取最新版本' : 'Get latest version'}</span>
+                    </a>
+                  </div>
                   <CodeBlock 
-                    code={`mkdir -p /data/opt/installmiddleware
-cd /data/opt/installmiddleware
-mkdir -p conf certs html data/nginx/logs`}
+                    code={dockerOfflineInstall}
                     language="bash"
                     filename="Terminal"
                   />
                 </div>
 
                 <div className="glass-card rounded-lg p-6">
-                  <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-4 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
-                    {language === 'zh' ? 'docker-compose.yml' : 'docker-compose.yml'}
+                  <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
+                    {language === 'zh' ? '创建目录结构' : 'Create Directory Structure'}
                   </h2>
+                  <p className={`text-gray-600 dark:text-gray-400 mb-4 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                    {language === 'zh'
+                      ? '创建部署所需的目录结构，用于存放配置文件、证书和验证文件。'
+                      : 'Create deployment directories for configs, certificates and verification files.'}
+                  </p>
                   <CodeBlock 
-                    code={dockerComposeYaml}
-                    language="yaml"
-                    filename="docker-compose.yml"
+                    code={createDirs}
+                    language="bash"
+                    filename="Terminal"
                   />
                 </div>
 
                 <div className="glass-card rounded-lg p-6">
-                  <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-4 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
-                    {language === 'zh' ? 'Nginx 配置示例' : 'Nginx Configuration'}
+                  <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
+                    {language === 'zh' ? '下载配置文件' : 'Download Configuration Files'}
                   </h2>
-                  <div className="mb-4 flex items-start gap-3 p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700/50">
+                  <p className={`text-gray-600 dark:text-gray-400 mb-4 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
+                    {language === 'zh'
+                      ? '从 GitHub 仓库下载 docker-compose.yml 和 Nginx 配置文件。'
+                      : 'Download docker-compose.yml and Nginx config from GitHub repository.'}
+                  </p>
+                  <CodeBlock 
+                    code={downloadConfigFiles}
+                    language="bash"
+                    filename="Terminal"
+                  />
+                  <div className="mt-4 flex items-start gap-3 p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700/50">
                     <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
                     <div>
                       <h3 className={`font-medium text-yellow-800 dark:text-yellow-200 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
-                        {language === 'zh' ? '关键提示' : 'Key Note'}
+                        {language === 'zh' ? '重要提示' : 'Important Note'}
                       </h3>
                       <p className={`text-sm text-yellow-700 dark:text-yellow-300 mt-1 ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>
-                        <code className="px-1.5 py-0.5 rounded bg-yellow-100 dark:bg-yellow-800/50 text-yellow-900 dark:text-yellow-100 font-mono text-xs">/.well-known/acme-challenge/</code>
                         {language === 'zh' 
-                          ? ' 路径必须指向 webroot，用于 ACME 验证'
-                          : ' must point to webroot for ACME verification'}
+                          ? '下载后需要修改 conf/web.conf 中的 your.domain.com 为实际域名。'
+                          : 'After download, modify your.domain.com in conf/web.conf to your actual domain.'}
                       </p>
                     </div>
                   </div>
-                  <CodeBlock 
-                    code={nginxConf}
-                    language="nginx"
-                    filename="conf/web.conf"
-                  />
                 </div>
 
                 <div className="glass-card rounded-lg p-6">
-                  <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-4 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
-                    {language === 'zh' ? '启动 Nginx' : 'Start Nginx'}
+                  <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-2 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
+                    {language === 'zh' ? '启动服务' : 'Start Services'}
                   </h2>
                   <CodeBlock 
-                    code="docker compose up -d"
+                    code={`# 启动 Nginx 容器
+docker compose up -d
+
+# 查看容器状态
+docker compose ps`}
                     language="bash"
                     filename="Terminal"
                   />
