@@ -1,14 +1,11 @@
-name: Update latest release
+name: CI
 
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 1 * *'
-
-permissions:
-  contents: write
 
 jobs:
   lint:
@@ -22,31 +19,3 @@ jobs:
         with:
           scandir: '.'
           pattern: '*.sh'
-
-  release:
-    runs-on: ubuntu-latest
-    needs: lint
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Move latest tag to HEAD
-        run: |
-          git tag -f latest
-          git push -f origin latest
-
-      - name: Re-create latest release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: latest
-          name: latest
-          prerelease: false
-          draft: false
-          generate_release_notes: false
-          files: |
-            README.md
-            renew-ssl-cert.sh
-            ssl-cert.conf.example
-          target_commitish: ${{ github.sha }}
