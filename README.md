@@ -36,7 +36,8 @@
 
 ```bash
 curl -L https://github.com/freemankevin/CertFlow/archive/refs/heads/main.tar.gz | tar -xz && cd CertFlow-main
-nano renew-ssl-cert.sh    # 修改 DOMAIN / BASE_DIR / RELOAD_CMD
+cp ssl-cert.conf.example ssl-cert.conf
+nano ssl-cert.conf       # 修改 DOMAINS / BASE_DIR / RELOAD_CMD
 chmod +x renew-ssl-cert.sh
 ./renew-ssl-cert.sh
 ```
