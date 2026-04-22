@@ -219,7 +219,7 @@ export function DocsPage() {
                     {language === 'zh' ? '下载命令' : 'Download Command'}
                   </h2>
                   <CodeBlock 
-                    code="curl -L https://github.com/freemankevin/CertFlow/archive/refs/heads/main.tar.gz | tar -xz && cd CertFlow-main"
+                    code="curl -L https://github.com/freemankevin/CertFlow/releases/latest/download/certflow.tar.gz | tar -xz"
                     language="bash"
                     filename="Terminal"
                   />

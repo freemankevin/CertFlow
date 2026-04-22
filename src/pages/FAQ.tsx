@@ -111,7 +111,7 @@ export function FAQPage() {
     {
       title: '下载 CertFlow',
       description: '获取最新版本',
-      content: `curl -L https://github.com/freemankevin/CertFlow/archive/refs/heads/main.tar.gz | tar -xz && cd CertFlow-main`,
+      content: `curl -L https://github.com/freemankevin/CertFlow/releases/latest/download/certflow.tar.gz | tar -xz`,
       language: 'bash',
       filename: 'Terminal',
     },
@@ -155,7 +155,7 @@ RELOAD_CMD="docker restart nginx"`,
     {
       title: 'Download CertFlow',
       description: 'Get the latest version',
-      content: `curl -L https://github.com/freemankevin/CertFlow/archive/refs/heads/main.tar.gz | tar -xz && cd CertFlow-main`,
+      content: `curl -L https://github.com/freemankevin/CertFlow/releases/latest/download/certflow.tar.gz | tar -xz`,
       language: 'bash',
       filename: 'Terminal',
     },

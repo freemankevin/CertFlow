@@ -35,7 +35,7 @@
 > 第一次运行会自动安装 acme.sh、申请证书并设置定时续期！
 
 ```bash
-curl -L https://github.com/freemankevin/CertFlow/archive/refs/heads/main.tar.gz | tar -xz && cd CertFlow-main
+curl -L https://github.com/freemankevin/CertFlow/releases/latest/download/certflow.tar.gz | tar -xz
 cp ssl-cert.conf.example ssl-cert.conf
 nano ssl-cert.conf       # 修改 DOMAINS / BASE_DIR / RELOAD_CMD
 chmod +x renew-ssl-cert.sh
