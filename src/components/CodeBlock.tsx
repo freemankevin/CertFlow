@@ -85,15 +85,15 @@ export function CodeBlock({ code, language = 'bash', filename, className, showLi
                     <td className="line-number">
                       {i + 1}
                     </td>
-                    <td className="whitespace-pre font-mono">
-                      <code dangerouslySetInnerHTML={{ __html: highlightedLines[i] || ' ' }} />
-                    </td>
+<td className="whitespace-pre font-mono">
+                       <code className="font-mono" dangerouslySetInnerHTML={{ __html: highlightedLines[i] || ' ' }} />
+                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <code ref={codeRef} className={`language-${language}`}>
+            <code ref={codeRef} className={`language-${language} font-mono`}>
               {code}
             </code>
           )}

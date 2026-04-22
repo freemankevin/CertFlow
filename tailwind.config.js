@@ -11,7 +11,7 @@ export default {
         'sans': ['Inter', 'Noto Sans SC', 'PingFang SC', 'system-ui', '-apple-system', 'sans-serif'],
         'elegant': ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
         'elegant-zh': ['Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif CN', 'serif'],
-        'mono': ['JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        'mono': ['JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', 'Menlo', 'Consolas', 'Courier New', 'monospace'],
       },
       colors: {
         'ssl-green': '#10B981',

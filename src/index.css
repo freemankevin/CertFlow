@@ -1,5 +1,4 @@
-/* JetBrains Mono 字体 - 专业代码字体 */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+/* 字体通过 index.html 统一加载，避免重复导入冲突 */
 
 @tailwind base;
 @tailwind components;
