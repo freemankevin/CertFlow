@@ -72,7 +72,7 @@ const translations = {
     docs: {
       title: '部署文档',
       tabs: {
-        overview: '概述',
+        overview: '快速开始',
         docker: 'Docker Nginx',
         config: '配置说明',
         cron: '自动续期',
@@ -156,7 +156,7 @@ const translations = {
     docs: {
       title: 'Deployment Docs',
       tabs: {
-        overview: 'Overview',
+        overview: 'Quick Start',
         docker: 'Docker Nginx',
         config: 'Configuration',
         cron: 'Auto Renewal',
