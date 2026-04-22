@@ -4,7 +4,6 @@ import hljs from 'highlight.js/lib/core'
 import bash from 'highlight.js/lib/languages/bash'
 import yaml from 'highlight.js/lib/languages/yaml'
 import nginx from 'highlight.js/lib/languages/nginx'
-import 'highlight.js/styles/atom-one-dark.css'
 import { cn } from '../lib/utils'
 
 hljs.registerLanguage('bash', bash)
