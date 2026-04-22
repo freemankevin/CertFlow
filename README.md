@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/freemankevin/CertFlow/main/logo.svg" alt="CertFlow" width="180"/>
+  <img src="https://raw.githubusercontent.com/freemankevin/CertFlow/main/public/logo.svg" alt="CertFlow" width="180"/>
 </p>
 <h1 align="center">CertFlow</h1>
 <p align="center"><em>SSL Certificate Auto Renewal</em></p>
