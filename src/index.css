@@ -27,6 +27,16 @@
     font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   }
   
+  /* 强制中文页面代码块使用 JetBrains Mono 字体 */
+  :lang(zh) code,
+  :lang(zh) pre,
+  :lang(zh) .code-block,
+  :lang(zh) .code-content,
+  :lang(zh) .line-number,
+  :lang(zh) .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
+  }
+  
   :lang(zh) h1,
   :lang(zh) h2,
   :lang(zh) h3 {
