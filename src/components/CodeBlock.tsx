@@ -46,33 +46,38 @@ export function CodeBlock({ code, language = 'bash', filename, className, showLi
   return (
     <div className={cn('code-block', className)}>
       <div className="code-header">
-        <div className="flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-            <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+        <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-[#ff5f56] shadow-sm" />
+            <span className="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-sm" />
+            <span className="w-3 h-3 rounded-full bg-[#27c93f] shadow-sm" />
           </div>
           {filename && (
-            <span className="ml-3 text-xs text-gray-400 font-medium tracking-wide">
+            <span className="ml-2 text-xs text-gray-500 font-medium tracking-wide font-mono">
               {filename}
             </span>
           )}
         </div>
         <button
           onClick={handleCopy}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-gray-400 hover:text-white bg-gray-700/40 hover:bg-gray-700/60 rounded transition-all"
+          className={cn(
+            "inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded transition-all duration-200",
+            copied 
+              ? "text-green-400 bg-green-500/10 border border-green-500/20" 
+              : "text-gray-500 hover:text-gray-300 bg-gray-700/30 hover:bg-gray-700/50 border border-gray-600/30 hover:border-gray-500/50"
+          )}
           title={copied ? 'Copied!' : 'Copy code'}
         >
           {copied ? (
-            <Check className="h-3.5 w-3.5 text-green-400" />
+            <Check className="h-3.5 w-3.5" />
           ) : (
             <Copy className="h-3.5 w-3.5" />
           )}
-          {copied ? 'Copied' : 'Copy'}
+          <span className="leading-none">{copied ? 'Copied' : 'Copy'}</span>
         </button>
       </div>
       <div className="code-content scrollbar-thin">
-        <pre className="text-gray-200">
+        <pre className="text-gray-300">
           {showLineNumbers ? (
             <table className="w-full border-collapse">
               <tbody>

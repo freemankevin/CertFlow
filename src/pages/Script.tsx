@@ -67,7 +67,7 @@ export function ScriptPage() {
     <div className="animate-fade-in">
       <section className="py-6 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm">
         <div className="container-custom">
-          <div className="flex items-start justify-between gap-6 max-w-5xl">
+          <div className="flex items-start justify-between gap-6">
             <div>
               <h1 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
                 {t.script.title}
@@ -100,7 +100,7 @@ export function ScriptPage() {
 
       <section className="py-6 bg-gray-50/50 dark:bg-gray-950/50">
         <div className="container-custom">
-          <div className="max-w-5xl relative">
+          <div className="relative">
             <div className="glass-card rounded-lg overflow-hidden">
               {loading ? (
                 <div className="flex items-center justify-center py-20">

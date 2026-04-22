@@ -254,8 +254,7 @@ RELOAD_CMD="docker restart nginx"`,
 
       <section className="py-12 bg-gray-50/50 dark:bg-gray-950/50">
         <div className="container-custom">
-          <div className="max-w-4xl">
-            {activeTab === 'faq' && (
+          {activeTab === 'faq' && (
               <div className="space-y-4 animate-fade-in">
                 {faqItems.map((item, index) => (
                   <div
@@ -386,8 +385,7 @@ RELOAD_CMD="docker restart nginx"`,
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+)}
         </div>
       </section>
     </div>

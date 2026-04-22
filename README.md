@@ -18,7 +18,15 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://certflow.freemankevin.uk">
+    <img src="https://raw.githubusercontent.com/freemankevin/CertFlow/main/public/home.png" alt="CertFlow Preview" width="800"/>
+  </a>
+</p>
+
 ---
+
+
 
 ## ✨ 核心特性
 
@@ -28,6 +36,7 @@
 - 🐳 **Docker 无缝集成** — 证书更新后自动重载 Nginx 容器
 - 📦 **批量友好** — 一键适配多域名、多服务器场景
 - 🔔 **通知机制** — 支持 Webhook 通知证书更新状态
+
 
 ## 🚀 快速开始
 
@@ -39,10 +48,6 @@ chmod +x renew-ssl-cert.sh
 ```
 
 > 第一次运行会自动安装 acme.sh、申请证书并设置定时续期！
-
-## 📖 完整文档
-
-详细部署指南请访问 [CertFlow 文档网站](https://freemankevin.github.io/CertFlow)
 
 ## ❤️ 感谢
 

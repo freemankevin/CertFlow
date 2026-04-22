@@ -142,8 +142,7 @@ export function DocsPage() {
 
       <section className="py-12 bg-gray-50/50 dark:bg-gray-950/50">
         <div className="container-custom">
-          <div className="max-w-4xl">
-            {activeTab === 'overview' && (
+          {activeTab === 'overview' && (
               <div className="space-y-8 animate-fade-in">
                 <div className="glass-card rounded-lg p-6">
                   <h2 className={`text-xl font-semibold text-gray-900 dark:text-white mb-4 ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
@@ -513,8 +512,8 @@ docker compose ps`}
                                       document.getElementById('download-command')?.scrollIntoView({ behavior: 'smooth' })
                                     }, 100)
                                   }}
-                                  className="text-ssl-blue hover:text-blue-600 underline"
-                                >"下载命令"</a>部分，提供了完整的下载和解压命令。</>
+                                  className="text-ssl-blue hover:text-blue-600"
+                                >"下载命令"</a>部分，提供了完整的下载命令。</>
                               : <>Please check the <a 
                                   href="#download-command"
                                   onClick={(e) => {
@@ -524,7 +523,7 @@ docker compose ps`}
                                       document.getElementById('download-command')?.scrollIntoView({ behavior: 'smooth' })
                                     }, 100)
                                   }}
-                                  className="text-ssl-blue hover:text-blue-600 underline"
+                                  className="text-ssl-blue hover:text-blue-600"
                                 >"Download Command"</a> section in the Overview page for the complete download command.</>}
                           </p>
                         ) : (
@@ -537,8 +536,7 @@ docker compose ps`}
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+)}
         </div>
       </section>
 

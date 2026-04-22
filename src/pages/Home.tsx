@@ -69,9 +69,11 @@ export function HomePage() {
             
             <h1 className={`text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
               {t.hero.title}
-              <span className={`block text-xl lg:text-3xl font-normal text-white/80 mt-2 whitespace-nowrap ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
-                {t.hero.subtitle}
-              </span>
+              {t.hero.subtitle && (
+                <span className={`block text-xl lg:text-3xl font-normal text-white/80 mt-2 whitespace-nowrap ${language === 'zh' ? 'font-elegant-zh' : 'font-elegant'}`}>
+                  {t.hero.subtitle}
+                </span>
+              )}
             </h1>
             
             <p className={`text-xl lg:text-2xl text-white/70 mb-6 leading-relaxed whitespace-nowrap ${language === 'zh' ? 'font-body-zh' : 'font-body'}`}>

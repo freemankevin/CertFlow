@@ -51,8 +51,6 @@ AUTO_UPDATE_NGINX_DOMAIN=false
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_FILE="${SCRIPT_DIR}/ssl-cert.conf"
 LOG_FILE=""
-# shellcheck disable=SC2034
-CURRENT_DOMAIN=""
 STATS_TOTAL=0
 STATS_SUCCESS=0
 STATS_FAILED=0
@@ -446,7 +444,8 @@ test_verify_path() {
     local acme_dir="${WEBROOT_DIR}/.well-known/acme-challenge"
     local test_file
     test_file="${acme_dir}/test.txt"
-    local test_content="acme-test-$(date +%s)"
+    local test_content
+    test_content="acme-test-$(date +%s)"
     
     echo "${test_content}" > "${test_file}"
     sleep 1
@@ -709,8 +708,6 @@ process_domain() {
     # 解析域名（取第一个作为主域名）
     local main_domain
     main_domain=$(echo "${domain_entry}" | awk '{print $1}' | tr -d ',' | head -1)
-    
-    CURRENT_DOMAIN="${main_domain}"
     
     print_separator
     print_header "处理域名: ${main_domain}"
