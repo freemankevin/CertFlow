@@ -20,7 +20,7 @@ const translations = {
     hero: {
       badge: '自动化维护 · 即时更新',
       title: 'CertFlow',
-      subtitle: 'SSL Certificate Auto Renewal',
+      subtitle: 'SSL 证书自动续期',
       description: '一条命令 · 零配置焦虑 · 让 SSL 续期像呼吸一样自然',
       highlights: [
         '基于 acme.sh 构建，免费获取 Let\'s Encrypt 证书',
