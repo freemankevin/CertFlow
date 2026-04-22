@@ -19,6 +19,8 @@ interface CodeBlockProps {
   showLineNumbers?: boolean
 }
 
+const CODE_FONT_FAMILY = "'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace"
+
 export function CodeBlock({ code, language = 'bash', filename, className, showLineNumbers = true }: CodeBlockProps) {
   const [copied, setCopied] = useState(false)
   const [highlightedLines, setHighlightedLines] = useState<string[]>([])
@@ -43,8 +45,8 @@ export function CodeBlock({ code, language = 'bash', filename, className, showLi
   const rawLines = code.split('\n')
 
   return (
-    <div className={cn('code-block', className)}>
-      <div className="code-header">
+    <div className={cn('code-block', className)} style={{ fontFamily: CODE_FONT_FAMILY }}>
+      <div className="code-header" style={{ fontFamily: CODE_FONT_FAMILY }}>
         <div className="flex items-center gap-2.5">
           <div className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded-full bg-[#ff5f56] shadow-sm" />
@@ -52,7 +54,7 @@ export function CodeBlock({ code, language = 'bash', filename, className, showLi
             <span className="w-3 h-3 rounded-full bg-[#27c93f] shadow-sm" />
           </div>
           {filename && (
-            <span className="ml-2 text-xs text-gray-500 font-medium tracking-wide font-mono">
+            <span className="ml-2 text-xs text-gray-500 font-medium tracking-wide font-mono" style={{ fontFamily: CODE_FONT_FAMILY }}>
               {filename}
             </span>
           )}
@@ -75,25 +77,25 @@ export function CodeBlock({ code, language = 'bash', filename, className, showLi
           <span className="leading-none">{copied ? 'Copied' : 'Copy'}</span>
         </button>
       </div>
-      <div className="code-content scrollbar-thin">
-        <pre className="text-gray-300">
+      <div className="code-content scrollbar-thin" style={{ fontFamily: CODE_FONT_FAMILY }}>
+        <pre className="text-gray-300" style={{ fontFamily: CODE_FONT_FAMILY }}>
           {showLineNumbers ? (
-            <table className="w-full border-collapse">
-              <tbody>
+            <table className="w-full border-collapse" style={{ fontFamily: CODE_FONT_FAMILY }}>
+              <tbody style={{ fontFamily: CODE_FONT_FAMILY }}>
                 {rawLines.map((_, i) => (
                   <tr key={i} className="code-line">
-                    <td className="line-number">
+                    <td className="line-number" style={{ fontFamily: CODE_FONT_FAMILY }}>
                       {i + 1}
                     </td>
-<td className="whitespace-pre font-mono">
-                       <code className="font-mono" dangerouslySetInnerHTML={{ __html: highlightedLines[i] || ' ' }} />
-                     </td>
+                    <td className="whitespace-pre font-mono" style={{ fontFamily: CODE_FONT_FAMILY }}>
+                      <code className="font-mono" style={{ fontFamily: CODE_FONT_FAMILY }} dangerouslySetInnerHTML={{ __html: highlightedLines[i] || ' ' }} />
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <code ref={codeRef} className={`language-${language} font-mono`}>
+            <code ref={codeRef} className={`language-${language} font-mono`} style={{ fontFamily: CODE_FONT_FAMILY }}>
               {code}
             </code>
           )}

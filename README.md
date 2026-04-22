@@ -4,18 +4,10 @@
 <h1 align="center">CertFlow</h1>
 <p align="center"><em>SSL Certificate Auto Renewal</em></p>
 <p align="center">
-  <a href="https://github.com/freemankevin/CertFlow/actions/workflows/ci.yml">
-    <img src="https://github.com/freemankevin/CertFlow/actions/workflows/ci.yml/badge.svg" alt="CI Status"/>
-  </a>
-  <a href="https://github.com/freemankevin/CertFlow/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/freemankevin/CertFlow?style=flat-square&color=success" alt="License"/>
-  </a>
-  <a href="https://github.com/freemankevin/CertFlow/releases/latest">
-    <img src="https://img.shields.io/github/v/release/freemankevin/CertFlow?style=flat-square&color=blue" alt="Latest Release"/>
-  </a>
-  <a href="https://github.com/freemankevin/CertFlow/stargazers">
-    <img src="https://img.shields.io/github/stars/freemankevin/CertFlow?style=flat-square" alt="GitHub stars"/>
-  </a>
+  <a href="https://github.com/freemankevin/CertFlow/actions/workflows/ci.yml"><img src="https://github.com/freemankevin/CertFlow/actions/workflows/ci.yml/badge.svg" alt="CI Status"/></a>
+  <a href="https://github.com/freemankevin/CertFlow/blob/main/LICENSE"><img src="https://img.shields.io/github/license/freemankevin/CertFlow?style=flat-square&color=success" alt="License"/></a>
+  <a href="https://github.com/freemankevin/CertFlow/releases/latest"><img src="https://img.shields.io/github/v/release/freemankevin/CertFlow?style=flat-square&color=blue" alt="Latest Release"/></a>
+  <a href="https://github.com/freemankevin/CertFlow/stargazers"><img src="https://img.shields.io/github/stars/freemankevin/CertFlow?style=flat-square" alt="GitHub stars"/></a>
 </p>
 
 <p align="center">

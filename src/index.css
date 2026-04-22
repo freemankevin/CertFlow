@@ -1,5 +1,18 @@
 /* 字体通过 index.html 统一加载，避免重复导入冲突 */
 
+/* 全局代码字体 - 无论中英文都一致，必须在最前面确保优先级 */
+code, pre, .font-mono, .code-block, .code-content, .line-number,
+.hljs, .hljs *, .hljs span, .hljs code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
+}
+
+/* 强制所有使用 font-mono 的元素使用 JetBrains Mono */
+.font-mono,
+.font-mono *,
+[class*="font-mono"] {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,20 +39,6 @@
     font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   }
   
-  /* 强制中文页面代码块使用 JetBrains Mono 字体 */
-  :lang(zh) code,
-  :lang(zh) pre,
-  :lang(zh) .code-block,
-  :lang(zh) .code-content,
-  :lang(zh) .line-number,
-  :lang(zh) .font-mono,
-  :lang(zh) .hljs,
-  :lang(zh) .hljs *,
-  :lang(zh) .hljs span,
-  :lang(zh) .hljs code {
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
-  }
-  
   :lang(zh) h1,
   :lang(zh) h2,
   :lang(zh) h3 {
@@ -62,11 +61,6 @@
   
   .dark ::selection {
     @apply bg-ssl-blue/30 text-white;
-  }
-  
-  /* 全局代码字体 - 确保中英文页面一致 */
-  code, pre, .font-mono {
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
   }
 }
 
