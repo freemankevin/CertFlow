@@ -34,14 +34,6 @@
     letter-spacing: 0.05em;
   }
   
-  :lang(zh) .code-block,
-  :lang(zh) .code-content,
-  :lang(zh) code,
-  :lang(zh) pre,
-  :lang(zh) .line-number {
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace;
-  }
-  
   :lang(en) h1,
   :lang(en) h2,
   :lang(en) h3,
@@ -57,6 +49,11 @@
   
   .dark ::selection {
     @apply bg-ssl-blue/30 text-white;
+  }
+  
+  /* 全局代码字体 - 确保中英文页面一致 */
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
   }
 }
 
@@ -129,7 +126,7 @@
     @apply rounded-xl overflow-hidden;
     background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
     border: 1px solid #30363d;
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
     font-feature-settings: 'liga' on, 'calt' on;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -146,9 +143,9 @@
     border-bottom: 1px solid #30363d;
   }
   
-.code-content {
+  .code-content {
     @apply p-4 overflow-x-auto;
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
     font-size: 13px;
     line-height: 1.7;
     letter-spacing: 0.2px;
@@ -159,6 +156,7 @@
   
   .code-content pre {
     margin: 0;
+    padding: 16px 0;
   }
   
   .code-content table {
@@ -167,36 +165,8 @@
     margin: 0;
   }
   
-  .code-line {
-    height: 22px;
-    border-radius: 0;
-    transition: background-color 0.15s ease;
-  }
-  
-  .code-line:hover {
-    background: rgba(56, 139, 253, 0.08);
-  }
-  
-  .line-number {
-    color: #484f58;
-    text-align: right;
-    user-select: none;
-    padding: 0;
-    width: 48px;
-    font-size: 12px;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -0.5px;
-    vertical-align: top;
-  }
-  
-  .code-line td:last-child {
-    padding: 0 0 0 16px;
-    vertical-align: top;
-  }
-  
-  .code-content pre {
-    margin: 0;
-    padding: 16px 0;
+  .code-content code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
   }
   
   .code-line {
@@ -223,17 +193,17 @@
     color: #484f58;
     text-align: right;
     user-select: none;
-    padding: 0 16px;
-    width: 1%;
-    min-width: 48px;
+    padding: 0;
+    width: 48px;
     font-size: 12px;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.5px;
     vertical-align: top;
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
   }
   
   .code-line td:last-child {
-    padding: 0 16px 0 0;
+    padding: 0 0 0 16px;
     vertical-align: top;
   }
 }
