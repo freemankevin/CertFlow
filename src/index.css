@@ -34,6 +34,14 @@
     letter-spacing: 0.05em;
   }
   
+  :lang(zh) .code-block,
+  :lang(zh) .code-content,
+  :lang(zh) code,
+  :lang(zh) pre,
+  :lang(zh) .line-number {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace;
+  }
+  
   :lang(en) h1,
   :lang(en) h2,
   :lang(en) h3,

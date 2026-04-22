@@ -40,6 +40,8 @@
 
 ## 🚀 快速开始
 
+> 第一次运行会自动安装 acme.sh、申请证书并设置定时续期！
+
 ```bash
 curl -L https://github.com/freemankevin/CertFlow/archive/refs/heads/main.tar.gz | tar -xz && cd CertFlow-main
 nano renew-ssl-cert.sh    # 修改 DOMAIN / BASE_DIR / RELOAD_CMD
@@ -47,11 +49,9 @@ chmod +x renew-ssl-cert.sh
 ./renew-ssl-cert.sh
 ```
 
-> 第一次运行会自动安装 acme.sh、申请证书并设置定时续期！
+
 
 ## ❤️ 感谢
 
 - [acme.sh](https://github.com/acmesh-official/acme.sh) — 极简强大的 ACME 客户端
 - [Let's Encrypt](https://letsencrypt.org) — 免费、可信赖的证书权威
-
-欢迎 star ✨ & fork → PR！
