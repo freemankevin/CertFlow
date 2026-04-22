@@ -33,7 +33,11 @@
   :lang(zh) .code-block,
   :lang(zh) .code-content,
   :lang(zh) .line-number,
-  :lang(zh) .font-mono {
+  :lang(zh) .font-mono,
+  :lang(zh) .hljs,
+  :lang(zh) .hljs *,
+  :lang(zh) .hljs span,
+  :lang(zh) .hljs code {
     font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
   }
   
@@ -265,6 +269,14 @@
 .hljs {
   background: transparent !important;
   color: #c9d1d9 !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
+}
+
+/* 强制所有 hljs 相关元素使用 JetBrains Mono 字体 */
+.hljs *,
+.hljs span,
+.hljs code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
 }
 
 .hljs-comment,
