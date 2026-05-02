@@ -1,275 +1,128 @@
-/* 字体通过 index.html 统一加载，避免重复导入冲突 */
-
-/* 全局代码字体 - 无论中英文都一致，必须在最前面确保优先级 */
-code, pre, .font-mono, .code-block, .code-content, .line-number,
-.hljs, .hljs *, .hljs span, .hljs code {
-  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
-}
-
-/* 强制所有使用 font-mono 的元素使用 JetBrains Mono */
-.font-mono,
-.font-mono *,
-[class*="font-mono"] {
-  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   body {
-    @apply antialiased bg-gray-50 text-gray-900;
+    @apply antialiased bg-white dark:bg-[#0B0F19] text-gray-900 dark:text-gray-100;
     line-height: 1.6;
   }
-  
-  .dark body {
-    @apply bg-gray-950 text-gray-100;
-  }
-  
-  :lang(zh) {
-    font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  }
-  
-  :lang(zh) h1,
-  :lang(zh) h2,
-  :lang(zh) h3 {
-    font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif CN', serif;
-    letter-spacing: 0.05em;
-  }
-  
-  :lang(en) h1,
-  :lang(en) h2,
-  :lang(en) h3,
-  .font-display {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-  }
-  
+
   ::selection {
-    @apply bg-ssl-blue/20 text-ssl-dark;
-  }
-  
-  .dark ::selection {
-    @apply bg-ssl-blue/30 text-white;
+    @apply bg-gray-200 text-gray-900;
   }
 }
 
 @layer components {
-  .font-elegant-zh {
-    font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif CN', serif;
-    letter-spacing: 0.05em;
-  }
-  
-  .font-body-zh {
-    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    font-weight: 400;
-  }
-  
-  .font-elegant {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-  }
-  
-  .font-body {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 400;
-  }
-  
-  .glass {
-    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-gray-700/30;
-  }
-  
-  .glass-card {
-    @apply bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl shadow-gray-900/5;
-  }
-  
-  .hover-lift {
-    @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl;
-  }
-  
-  .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-ssl-blue rounded-lg 
-           hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ssl-blue 
-           transition-all duration-200 shadow-lg shadow-ssl-blue/25;
-  }
-  
-  .dark .btn-primary {
-    @apply focus:ring-offset-gray-950 shadow-ssl-blue/20 hover:shadow-xl hover:shadow-ssl-blue/30;
-  }
-  
-  .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-gray-700 dark:text-gray-200 
-           bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 
-           rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 
-           focus:ring-offset-2 focus:ring-ssl-blue transition-all duration-200;
-  }
-  
-  .btn-glass {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium 
-           bg-white/20 dark:bg-gray-800/40 backdrop-blur-lg border border-white/30 dark:border-gray-600/40 
-           rounded-lg hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-200;
-  }
-  
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-5xl mx-auto px-6;
   }
-  
-  .feature-card {
-    @apply p-6 rounded-lg glass-card hover-lift;
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-md
+           hover:bg-gray-800 transition-colors duration-150;
   }
-  
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-gray-700
+           bg-white border border-gray-200 rounded-md hover:bg-gray-50 transition-colors duration-150;
+  }
+
   .code-block {
-    @apply rounded-xl overflow-hidden;
-    background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+    @apply rounded-lg overflow-hidden;
+    background: #0d1117;
     border: 1px solid #30363d;
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
-    font-feature-settings: 'liga' on, 'calt' on;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 1px rgba(255, 255, 255, 0.1);
   }
-  
-  .dark .code-block {
-    border-color: #30363d;
-  }
-  
+
   .code-header {
-    @apply flex items-center justify-between px-4 py-3;
-    background: rgba(22, 27, 34, 0.98);
+    @apply flex items-center justify-between px-4 py-2.5;
+    background: #161b22;
     border-bottom: 1px solid #30363d;
   }
-  
+
   .code-content {
     @apply p-4 overflow-x-auto;
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
-    font-size: 13px;
+    font-size: 13.5px;
     line-height: 1.7;
-    letter-spacing: 0.2px;
-    font-feature-settings: 'liga' on, 'calt' on;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
   }
-  
+
   .code-content pre {
     margin: 0;
-    padding: 16px 0;
+    padding: 0;
   }
-  
+
   .code-content table {
     border-collapse: collapse;
     width: 100%;
     margin: 0;
   }
-  
-  .code-content code {
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
-  }
-  
+
   .code-line {
-    height: 22px;
-    border-radius: 0;
-    transition: background-color 0.15s ease;
+    height: 24px;
   }
-  
+
   .code-line:hover {
     background: rgba(56, 139, 253, 0.08);
   }
-  
-  .code-line:first-child .line-number,
-  .code-line:first-child td:last-child {
-    padding-top: 0;
-  }
-  
-  .code-line:last-child .line-number,
-  .code-line:last-child td:last-child {
-    padding-bottom: 0;
-  }
-  
+
   .line-number {
-    color: #484f58;
+    color: #6e7681;
     text-align: right;
     user-select: none;
-    padding: 0;
+    padding: 0 12px 0 0;
     width: 48px;
     font-size: 12px;
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.5px;
     vertical-align: top;
-    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
   }
-  
+
   .code-line td:last-child {
-    padding: 0 0 0 16px;
+    padding: 0 12px 0 0;
     vertical-align: top;
   }
 }
 
 @layer utilities {
-  .animate-delay-100 { animation-delay: 100ms; }
-  .animate-delay-200 { animation-delay: 200ms; }
-  .animate-delay-300 { animation-delay: 300ms; }
-  
-  .font-optimized {
-    text-rendering: optimizeLegibility;
-  }
-  
-  /* 代码块滚动条 - VSCode 风格 */
   .scrollbar-thin {
     scrollbar-width: thin;
     scrollbar-color: rgba(110, 118, 129, 0.4) transparent;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-thumb {
     background-color: rgba(110, 118, 129, 0.3);
     border-radius: 4px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background-color: rgba(110, 118, 129, 0.5);
   }
-  
-  .scrollbar-thin::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-  
-  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: rgba(110, 118, 129, 0.4);
-  }
 }
 
+/* ============================================================
+   Syntax Highlighting — GitHub Dark inspired
+   ============================================================ */
 .hljs {
   background: transparent !important;
-  color: #c9d1d9 !important;
-  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
-}
-
-/* 强制所有 hljs 相关元素使用 JetBrains Mono 字体 */
-.hljs *,
-.hljs span,
-.hljs code {
-  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', Menlo, Consolas, 'Courier New', monospace !important;
+  color: #e6edf3 !important;
 }
 
 .hljs-comment,
@@ -278,80 +131,86 @@ code, pre, .font-mono, .code-block, .code-content, .line-number,
   font-style: italic !important;
 }
 
-.hljs-doctag,
 .hljs-keyword,
-.hljs-formula {
-  color: #ff7b72 !important;
-}
-
-.hljs-section,
-.hljs-name,
 .hljs-selector-tag,
-.hljs-deletion,
-.hljs-subst {
-  color: #ffa657 !important;
-}
-
-.hljs-link {
-  color: #58a6ff !important;
-}
-
-.hljs-literal {
-  color: #79c0ff !important;
-}
-
-.hljs-regexp,
-.hljs-addition,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-meta-string {
-  color: #a5d6ff !important;
+.hljs-section,
+.hljs-doctag {
+  color: #ff7b72 !important;
+  font-weight: 500 !important;
 }
 
 .hljs-string,
-.hljs-meta,
-.hljs-attr,
-.hljs-variable,
-.hljs-template-variable,
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-addition {
+  color: #a5d6ff !important;
+}
+
+.hljs-number,
+.hljs-literal,
 .hljs-type,
-.hljs-selector-class,
-.hljs-selector-id,
 .hljs-built_in,
-.hljs-builtin-name,
-.hljs-title,
-.hljs-class,
-.hljs-number {
+.hljs-builtin-name {
   color: #79c0ff !important;
 }
 
-.hljs-symbol,
-.hljs-bullet,
-.hljs-tag,
-.hljs-subst,
-.hljs-emphasis,
-.hljs-strong {
-  color: #ffa657 !important;
-}
-
-.hljs-function,
-.hljs-params {
+.hljs-function .hljs-title,
+.hljs-title.function_ {
   color: #d2a8ff !important;
 }
 
-.hljs-tag .hljs-attr,
+.hljs-class .hljs-title,
+.hljs-title.class_ {
+  color: #ffa657 !important;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attr,
+.hljs-attribute {
+  color: #79c0ff !important;
+}
+
+.hljs-params {
+  color: #e6edf3 !important;
+}
+
+.hljs-tag {
+  color: #7ee787 !important;
+}
+
 .hljs-tag .hljs-name {
   color: #7ee787 !important;
 }
 
-.hljs-tag .hljs-attr .hljs-string {
-  color: #a5d6ff !important;
-}
-
-.hljs.language-bash .hljs-built_in,
-.hljs.language-sh .hljs-built_in {
+.hljs-tag .hljs-attr {
   color: #79c0ff !important;
 }
 
+.hljs-tag .hljs-string {
+  color: #a5d6ff !important;
+}
+
+.hljs-link {
+  color: #a5d6ff !important;
+  text-decoration: underline !important;
+}
+
+.hljs-subst,
+.hljs-symbol,
+.hljs-bullet {
+  color: #e6edf3 !important;
+}
+
+.hljs-emphasis {
+  font-style: italic !important;
+}
+
+.hljs-strong {
+  font-weight: 700 !important;
+}
+
+/* Language-specific tweaks */
 .hljs.language-bash .hljs-variable,
 .hljs.language-sh .hljs-variable {
   color: #ffa657 !important;
@@ -371,108 +230,4 @@ code, pre, .font-mono, .code-block, .code-content, .line-number,
 
 .hljs.language-nginx .hljs-attr {
   color: #79c0ff !important;
-}
-
-.hljs-comment,
-.hljs-quote {
-  color: #5c6370 !important;
-  font-style: italic !important;
-}
-
-.hljs-doctag,
-.hljs-keyword,
-.hljs-formula {
-  color: #c678dd !important;
-}
-
-.hljs-section,
-.hljs-name,
-.hljs-selector-tag,
-.hljs-deletion,
-.hljs-subst {
-  color: #e06c75 !important;
-}
-
-.hljs-link {
-  color: #61afef !important;
-}
-
-.hljs-literal {
-  color: #56b6c2 !important;
-}
-
-.hljs-regexp,
-.hljs-addition,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-meta-string {
-  color: #98c379 !important;
-}
-
-.hljs-string,
-.hljs-meta,
-.hljs-attr,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-type,
-.hljs-selector-class,
-.hljs-selector-id,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-title,
-.hljs-class,
-.hljs-number {
-  color: #d19a66 !important;
-}
-
-.hljs-symbol,
-.hljs-bullet,
-.hljs-tag,
-.hljs-subst,
-.hljs-emphasis,
-.hljs-strong {
-  color: #e06c75 !important;
-}
-
-.hljs-function,
-.hljs-params {
-  color: #61afef !important;
-}
-
-.hljs-tag .hljs-attr,
-.hljs-tag .hljs-name {
-  color: #e06c75 !important;
-}
-
-.hljs-tag .hljs-attr .hljs-string {
-  color: #98c379 !important;
-}
-
-/* Bash 特殊样式 */
-.hljs.language-bash .hljs-built_in,
-.hljs.language-sh .hljs-built_in {
-  color: #61afef !important;
-}
-
-.hljs.language-bash .hljs-variable,
-.hljs.language-sh .hljs-variable {
-  color: #e06c75 !important;
-}
-
-/* YAML 样式 */
-.hljs.language-yaml .hljs-attr {
-  color: #56b6c2 !important;
-}
-
-.hljs.language-yaml .hljs-string {
-  color: #98c379 !important;
-}
-
-/* Nginx 样式 */
-.hljs.language-nginx .hljs-section {
-  color: #c678dd !important;
-}
-
-.hljs.language-nginx .hljs-attr {
-  color: #d19a66 !important;
 }
