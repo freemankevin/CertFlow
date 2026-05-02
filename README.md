@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://certflow.freemankevin.uk">
-    <img src="https://raw.githubusercontent.com/freemankevin/CertFlow/main/public/home.png" alt="CertFlow Preview" width="800"/>
+    <img src="https://github.com/freemankevin/CertFlow/blob/main/public/home.png" alt="CertFlow Preview" width="800"/>
   </a>
 </p>
 
